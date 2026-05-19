@@ -72,20 +72,23 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Автополив Одеса — системи поливу газону з 2011 року" },
+      { name: "description", content: "Проєктування та монтаж автоматичного поливу, крапельного зрошення та укладка рулонного газону в Одесі та області. Hunter, Rain Bird, Irritec. Гарантія до 3 років." },
+      { name: "keywords", content: "автополив Одеса, система поливу Одеса, автополив газону, крапельний полив Одеса, рулонний газон Одеса, Hunter, Rain Bird" },
+      { property: "og:title", content: "Автополив Одеса — системи поливу газону з 2011 року" },
+      { property: "og:description", content: "Робимо системи поливу з 2011 року. Hunter, Rain Bird, Irritec. Гарантія на роботи та обладнання." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:locale", content: "uk_UA" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" },
     ],
   }),
   shellComponent: RootShell,
@@ -96,7 +99,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="uk">
       <head>
         <HeadContent />
       </head>

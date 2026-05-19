@@ -458,159 +458,27 @@ function Faq() {
 
 /* ───────────────────────────── LEAD FORM ───────────────────────────── */
 function LeadForm() {
-  const [submitting, setSubmitting] = useState(false);
-  const [done, setDone] = useState(false);
-
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const fd = new FormData(form);
-    const name = String(fd.get("name") || "").trim();
-    const phone = String(fd.get("phone") || "").trim();
-    if (name.length < 2) return toast.error("Введіть ваше ім'я");
-    if (phone.length < 7) return toast.error("Введіть номер телефону");
-
-    setSubmitting(true);
-    try {
-      // TODO: integrate with Telegram bot webhook
-      await new Promise((r) => setTimeout(r, 700));
-      setDone(true);
-      toast.success("Дякуємо! Передзвонимо найближчим часом");
-      form.reset();
-    } catch {
-      toast.error("Щось пішло не так. Спробуйте ще раз.");
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
   return (
     <section id="lead" className="py-20 lg:py-28 bg-brand-dark text-background relative overflow-hidden">
       <div className="absolute -top-32 -left-32 w-[420px] h-[420px] bg-brand-accent/20 rounded-full blur-3xl" />
       <div className="absolute -bottom-40 right-0 w-[520px] h-[520px] bg-brand-accent/10 rounded-full blur-3xl" />
-      <div className="container-x relative grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-16 items-center">
-        <div className="reveal">
+      <div className="container-x relative">
+        <div className="reveal max-w-2xl mx-auto text-center">
           <span className="inline-flex items-center gap-2 rounded-full bg-brand-accent/15 border border-brand-accent/30 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-brand-accent">
-            Безкоштовно
+            Калькулятор · 1 хвилина
           </span>
           <h2 className="mt-5 text-3xl sm:text-4xl lg:text-[44px] font-extrabold leading-[1.1] text-balance">
-            Залиште заявку на безкоштовний розрахунок
+            Розрахуйте вартість автополиву за 1 хвилину
           </h2>
-          <p className="mt-5 text-lg text-background/75 max-w-md">
-            Передзвонимо протягом 2 годин в робочий час. Виїзд та консультація — безкоштовно.
+          <p className="mt-5 text-lg text-background/75">
+            Дайте відповідь на 5 коротких питань — і ми покажемо орієнтовну вартість вашого проєкту.
           </p>
-          <div className="mt-8 space-y-3 text-background/80">
-            {[
-              "Виїзд та заміри — безкоштовно",
-              "Прозорий кошторис без прихованих доплат",
-              "Гарантія до 3 років",
-            ].map((t) => (
-              <div key={t} className="flex items-center gap-3">
-                <span className="grid place-items-center w-6 h-6 rounded-full bg-brand-accent/20 text-brand-accent">
-                  <Check className="w-3.5 h-3.5" />
-                </span>
-                <span className="text-[15px]">{t}</span>
-              </div>
-            ))}
-          </div>
         </div>
-
-        <div className="reveal">
-          <form
-            onSubmit={onSubmit}
-            className="bg-background text-foreground rounded-3xl p-7 sm:p-9 shadow-glow border border-white/10"
-          >
-            {done ? (
-              <div className="py-12 text-center">
-                <div className="mx-auto grid place-items-center w-16 h-16 rounded-full bg-brand-accent/15 text-brand-accent">
-                  <Check className="w-8 h-8" />
-                </div>
-                <h3 className="mt-5 text-xl font-bold text-brand-dark">Дякуємо!</h3>
-                <p className="mt-2 text-muted-foreground">Передзвонимо найближчим часом.</p>
-                <button
-                  type="button"
-                  onClick={() => setDone(false)}
-                  className="mt-6 text-sm font-semibold text-brand-accent hover:underline"
-                >
-                  Надіслати ще одну заявку
-                </button>
-              </div>
-            ) : (
-              <>
-                <div className="space-y-4">
-                  <Field label="Ім'я" required>
-                    <input
-                      name="name"
-                      required
-                      maxLength={80}
-                      placeholder="Як до вас звертатись"
-                      className="w-full rounded-xl border border-input bg-background px-4 py-3.5 text-[15px] outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition"
-                    />
-                  </Field>
-                  <Field label="Телефон" required>
-                    <input
-                      name="phone"
-                      required
-                      type="tel"
-                      maxLength={32}
-                      placeholder="+380 ___ ___ __ __"
-                      className="w-full rounded-xl border border-input bg-background px-4 py-3.5 text-[15px] outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition"
-                    />
-                  </Field>
-                  <Field label="Площа ділянки">
-                    <div className="relative">
-                      <select
-                        name="area"
-                        defaultValue=""
-                        className="w-full appearance-none rounded-xl border border-input bg-background px-4 py-3.5 text-[15px] outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition pr-10"
-                      >
-                        <option value="">Не знаю / уточню</option>
-                        <option value="до 3">до 3 соток</option>
-                        <option value="3-6">3–6 соток</option>
-                        <option value="6-10">6–10 соток</option>
-                        <option value="10+">більше 10 соток</option>
-                      </select>
-                      <ChevronDown className="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" />
-                    </div>
-                  </Field>
-                  <Field label="Коментар">
-                    <textarea
-                      name="comment"
-                      maxLength={600}
-                      rows={3}
-                      placeholder="Розкажіть про ділянку або задайте питання"
-                      className="w-full rounded-xl border border-input bg-background px-4 py-3.5 text-[15px] outline-none focus:border-brand-accent focus:ring-2 focus:ring-brand-accent/20 transition resize-none"
-                    />
-                  </Field>
-                </div>
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-brand-accent hover:bg-brand-accent-hover text-white py-4 text-base font-semibold shadow-glow transition-colors disabled:opacity-70"
-                >
-                  {submitting ? "Надсилаємо..." : "Отримати розрахунок"}
-                  {!submitting && <ArrowRight className="w-4 h-4" />}
-                </button>
-                <p className="mt-4 text-xs text-muted-foreground text-center leading-relaxed">
-                  Натискаючи кнопку, ви погоджуєтесь з обробкою персональних даних
-                </p>
-              </>
-            )}
-          </form>
+        <div className="reveal mt-10">
+          <LeadQuiz />
         </div>
       </div>
     </section>
-  );
-}
-
-function Field({ label, required, children }: { label: string; required?: boolean; children: React.ReactNode }) {
-  return (
-    <label className="block">
-      <span className="text-sm font-semibold text-brand-dark">
-        {label}{required && <span className="text-brand-accent ml-1">*</span>}
-      </span>
-      <div className="mt-1.5">{children}</div>
-    </label>
   );
 }
 

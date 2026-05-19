@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { useReveal } from "@/hooks/use-reveal";
+import { LeadQuiz } from "@/components/LeadQuiz";
 import heroImg from "@/assets/hero-sprinkler.jpg";
 import p1 from "@/assets/portfolio-1.jpg";
 import p2 from "@/assets/portfolio-2.jpg";

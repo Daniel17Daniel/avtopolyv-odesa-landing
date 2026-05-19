@@ -5,7 +5,6 @@ import {
   Phone, MessageCircle, Send, MapPin, Clock, Instagram, ArrowRight, Check, Menu, X,
   ChevronDown,
 } from "lucide-react";
-import { toast } from "sonner";
 import { useReveal } from "@/hooks/use-reveal";
 import { LeadQuiz } from "@/components/LeadQuiz";
 import heroImg from "@/assets/hero-sprinkler.jpg";

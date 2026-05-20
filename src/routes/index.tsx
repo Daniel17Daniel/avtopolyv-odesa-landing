@@ -240,35 +240,38 @@ function Services() {
       icon: Droplets,
       title: "Автоматичний полив",
       desc: "Повноцінна система автополиву під ключ. Проєктування, монтаж, налаштування. Обладнання Hunter та Rain Bird.",
+      water: true,
     },
     {
       icon: Sprout,
       title: "Крапельне зрошення",
       desc: "Точкова подача води до кожної рослини. Економія до 70% води. Ідеально для клумб, чагарників, теплиць.",
+      water: true,
     },
     {
       icon: Leaf,
       title: "Рулонний газон",
       desc: "Готовий газон за один день. Якісний дерн, професійна укладка, гарантія приживання.",
+      water: false,
     },
   ];
   return (
-    <section id="services" className="py-20 lg:py-28">
+    <section id="services" className="py-20 lg:py-28 bg-white">
       <div className="container-x">
         <SectionHeader eyebrow="Послуги" title="Наші послуги" />
         <div className="mt-12 grid md:grid-cols-3 gap-5 lg:gap-6">
           {items.map((s, i) => (
             <article
               key={s.title}
-              className="reveal group relative bg-card border border-border/60 rounded-2xl p-7 lg:p-8 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-500"
+              className={`reveal group relative bg-card border-2 border-brand-accent/40 rounded-2xl p-7 lg:p-8 shadow-soft hover:-translate-y-1 transition-all duration-500 ${s.water ? "hover:shadow-water" : "hover:shadow-lime"}`}
               style={{ transitionDelay: `${i * 80}ms` }}
             >
-              <div className="grid place-items-center w-14 h-14 rounded-2xl bg-brand-dark text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
+              <div className={`grid place-items-center w-14 h-14 rounded-2xl transition-colors ${s.water ? "bg-brand-water/10 text-brand-water group-hover:bg-brand-water group-hover:text-white" : "bg-brand-accent/15 text-brand-emerald group-hover:bg-brand-accent group-hover:text-white"}`}>
                 <s.icon className="w-7 h-7" />
               </div>
               <h3 className="mt-6 text-xl font-bold text-brand-dark">{s.title}</h3>
               <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{s.desc}</p>
-              <a href="#lead" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent hover:gap-3 transition-all">
+              <a href="#lead" className={`mt-6 inline-flex items-center gap-1.5 text-sm font-bold hover:gap-3 transition-all ${s.water ? "text-brand-water" : "text-brand-emerald"}`}>
                 Дізнатись більше <ArrowRight className="w-4 h-4" />
               </a>
             </article>
@@ -282,27 +285,30 @@ function Services() {
 /* ───────────────────────────── WHY US ───────────────────────────── */
 function WhyUs() {
   const items = [
-    { icon: Award, title: "Працюємо з 2011 року", desc: "Понад 14 років досвіду на ринку Одеси. Сотні реалізованих проєктів." },
-    { icon: Shield, title: "Тільки перевірені бренди", desc: "Hunter, Rain Bird, Irritec — світовий стандарт надійності." },
-    { icon: Ruler, title: "Індивідуальний проєкт", desc: "Не працюємо за шаблонами. Враховуємо рельєф, рослини, тиск води." },
-    { icon: BadgeCheck, title: "Гарантія на роботи", desc: "Несемо відповідальність за результат. Гарантія до 3 років." },
-    { icon: PiggyBank, title: "Економія води", desc: "Грамотна система не переливає і не сушить. Економите гроші щомісяця." },
-    { icon: Headphones, title: "Підтримка після монтажу", desc: "Не зникаємо після здачі об'єкта. Допомагаємо з обслуговуванням." },
+    { icon: Award, title: "14 років на ринку", desc: "Реалізували понад 100 проєктів в Одесі та області." },
+    { icon: Shield, title: "Hunter, Rain Bird, Irritec", desc: "Лише перевірені бренди з гарантією виробника." },
+    { icon: Ruler, title: "Індивідуальний проєкт", desc: "Враховуємо рельєф, рослини та тиск води." },
+    { icon: BadgeCheck, title: "Гарантія до 3 років", desc: "На роботи та обладнання." },
+    { icon: PiggyBank, title: "Економія води", desc: "Грамотна система не переливає і не сушить." },
+    { icon: Headphones, title: "Підтримка після монтажу", desc: "Допомагаємо з обслуговуванням після здачі." },
   ];
   return (
-    <section className="py-20 lg:py-28 bg-gradient-to-b from-background to-brand-accent/[0.04]">
+    <section className="py-20 lg:py-28 bg-brand-light">
       <div className="container-x">
         <SectionHeader eyebrow="Переваги" title="Чому обирають нас" />
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border/70 rounded-3xl overflow-hidden border border-border/70">
-          {items.map((it) => (
-            <div key={it.title} className="reveal bg-card p-7 lg:p-9 hover:bg-brand-accent/[0.04] transition-colors">
-              <div className="inline-grid place-items-center w-11 h-11 rounded-xl bg-brand-accent/10 text-brand-emerald">
-                <it.icon className="w-5 h-5" />
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
+          {items.map((it, i) => {
+            const water = i % 2 === 0;
+            return (
+              <div key={it.title} className="reveal bg-white rounded-2xl p-7 lg:p-8 shadow-soft hover:-translate-y-1 transition-all">
+                <div className={`inline-grid place-items-center w-12 h-12 rounded-full text-white ${water ? "bg-brand-water" : "bg-brand-accent"}`}>
+                  <it.icon className="w-6 h-6" />
+                </div>
+                <h3 className="mt-5 text-lg font-bold text-brand-dark">{it.title}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{it.desc}</p>
               </div>
-              <h3 className="mt-5 text-lg font-bold text-brand-dark">{it.title}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{it.desc}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

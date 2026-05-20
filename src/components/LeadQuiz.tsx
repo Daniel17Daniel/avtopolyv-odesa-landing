@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import {
   Droplets, Wrench, CalendarCheck, Sprout, Leaf, Layers,
   Zap, Calendar, Clock, Info, ArrowRight, ArrowLeft, Check, CheckCircle2,
-  Phone, Home, FileText, Instagram,
+  Phone, Home, FileText, Instagram, ClipboardList, Wallet, Car,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -171,10 +171,13 @@ export function LeadQuiz() {
   const progress = Math.min(step, TOTAL_STEPS);
 
   return (
-    <div className="bg-background text-foreground rounded-3xl p-6 sm:p-9 shadow-glow border border-white/10 max-w-3xl mx-auto w-full">
+    <div
+      className="bg-white text-foreground rounded-[24px] p-5 sm:p-7 shadow-2xl border border-brand-dark/5 max-w-3xl mx-auto w-full flex flex-col overflow-hidden"
+      style={{ maxHeight: "calc(100vh - 120px)" }}
+    >
       {step <= TOTAL_STEPS && (
-        <div className="mb-7">
-          <div className="flex items-center justify-between mb-3 min-h-[28px]">
+        <div className="mb-5 shrink-0">
+          <div className="flex items-center justify-between mb-2 min-h-[24px]">
             {step > 1 ? (
               <button onClick={back} className="inline-flex items-center gap-1.5 text-sm font-semibold text-muted-foreground hover:text-brand-dark transition-colors">
                 <ArrowLeft className="w-4 h-4" /> Назад
@@ -184,7 +187,7 @@ export function LeadQuiz() {
               Крок {progress} з {TOTAL_STEPS}
             </span>
           </div>
-          <div className="h-1.5 w-full rounded-full bg-brand-accent/15 overflow-hidden">
+          <div className="h-1 w-full rounded-full bg-brand-accent/15 overflow-hidden">
             <div
               className="h-full bg-brand-accent rounded-full transition-all duration-500 ease-out"
               style={{ width: `${(progress / TOTAL_STEPS) * 100}%` }}
@@ -193,7 +196,7 @@ export function LeadQuiz() {
         </div>
       )}
 
-      <div key={step} className="animate-fade-in" style={{ animationDuration: "300ms" }}>
+      <div key={step} className="animate-fade-in flex-1 min-h-0 overflow-y-auto" style={{ animationDuration: "300ms" }}>
         {step === 1 && <Step1 onPick={(v) => pick("service", v)} value={state.service} />}
         {step === 2 && (state.service === "seasonal"
           ? <Step2Seasonal onPick={(v) => pick("seasonal", v)} value={state.seasonal} />

@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import {
   Droplets, Sprout, Leaf, Award, Shield, Ruler, BadgeCheck, PiggyBank, Headphones,
   Phone, MessageCircle, Send, MapPin, Clock, Instagram, ArrowRight, Check, Menu, X,
-  ChevronDown,
+  ChevronDown, ChevronUp, Facebook, Music2,
 } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { LeadQuiz } from "@/components/LeadQuiz";
+import logoImg from "@/assets/garden-keeper-logo.jpg";
 import heroImg from "@/assets/hero-sprinkler.jpg";
 import p1 from "@/assets/portfolio-1.jpg";
 import p2 from "@/assets/portfolio-2.jpg";
@@ -48,7 +49,7 @@ const PHONE_SECONDARY_TEL = "+380993209841";
 function LandingPage() {
   useReveal();
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground pb-[68px] md:pb-0">
       <Header />
       <main>
         <Hero />
@@ -62,6 +63,8 @@ function LandingPage() {
       </main>
       <Footer />
       <FloatingChat />
+      <ScrollToTop />
+      <MobileBottomBar />
     </div>
   );
 }
@@ -85,23 +88,21 @@ function Header() {
   return (
     <header
       className={`sticky top-0 z-50 w-full transition-all ${
-        scrolled ? "bg-background/85 backdrop-blur-xl border-b border-border/70" : "bg-background/0"
+        scrolled ? "bg-white/95 backdrop-blur-xl shadow-[0_2px_20px_-8px_rgba(27,94,32,0.18)]" : "bg-white/80 backdrop-blur-md"
       }`}
     >
       <div className="container-x flex h-16 sm:h-20 items-center justify-between gap-6">
-        <a href="#top" className="flex items-center gap-2.5 group">
-          <span className="grid place-items-center w-9 h-9 rounded-xl bg-brand-dark text-background shadow-soft">
-            <Droplets className="w-5 h-5 text-brand-accent" />
-          </span>
+        <a href="#top" className="flex items-center gap-3 group">
+          <img src={logoImg} alt="Garden Keeper" className="w-11 h-11 sm:w-12 sm:h-12 rounded-full object-cover ring-2 ring-brand-accent/40" />
           <span className="flex flex-col leading-tight">
-            <span className="text-[15px] font-extrabold tracking-tight text-brand-dark">Автополив</span>
-            <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Одеса</span>
+            <span className="text-[16px] sm:text-[18px] font-extrabold tracking-tight text-brand-dark">Garden Keeper</span>
+            <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground hidden sm:block">Автополив · Одеса</span>
           </span>
         </a>
 
         <nav className="hidden lg:flex items-center gap-9">
           {nav.map((n) => (
-            <a key={n.href} href={n.href} className="text-sm font-medium text-foreground/80 hover:text-brand-dark transition-colors">
+            <a key={n.href} href={n.href} className="text-sm font-semibold text-foreground/80 hover:text-brand-water transition-colors">
               {n.label}
             </a>
           ))}
@@ -112,18 +113,18 @@ function Header() {
             href={`tel:${PHONE_PRIMARY_TEL}`}
             className="hidden md:inline-flex items-center gap-2 text-sm font-semibold text-brand-dark"
           >
-            <Phone className="w-4 h-4 text-brand-accent" />
+            <Phone className="w-4 h-4 text-brand-water" />
             {PHONE_PRIMARY}
           </a>
           <a
             href="#lead"
-            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-brand-dark text-background px-5 py-2.5 text-sm font-semibold hover:bg-brand-emerald transition-colors shadow-soft"
+            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-brand-water text-white px-5 py-2.5 text-sm font-bold hover:bg-brand-water-hover active:scale-[0.98] transition-all shadow-water"
           >
-            Розрахунок безкоштовно
+            Розрахунок
           </a>
           <a
             href={`tel:${PHONE_PRIMARY_TEL}`}
-            className="sm:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-accent text-white"
+            className="sm:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-water text-white"
             aria-label="Подзвонити"
           >
             <Phone className="w-4 h-4" />
@@ -161,53 +162,51 @@ function Header() {
 function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="absolute inset-x-0 top-0 h-[620px] -z-10 bg-gradient-to-b from-brand-accent/10 via-background to-background" />
+      <div className="absolute inset-x-0 top-0 h-[720px] -z-10 bg-gradient-to-b from-brand-light via-background to-background" />
+      <div className="absolute top-20 -left-32 w-[420px] h-[420px] bg-brand-accent/15 rounded-full blur-3xl -z-10" />
+      <div className="absolute top-40 -right-32 w-[480px] h-[480px] bg-brand-water/10 rounded-full blur-3xl -z-10" />
       <div className="container-x pt-10 lg:pt-16 pb-16 lg:pb-24 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-14 items-center">
         <div className="reveal">
-          <span className="inline-flex items-center gap-2 rounded-full border border-brand-accent/30 bg-brand-accent/10 text-brand-emerald px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider">
+          <span className="inline-flex items-center gap-2 rounded-full border border-brand-accent/40 bg-brand-light text-brand-dark px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-accent" />
             Працюємо з 2011 року
           </span>
           <h1 className="mt-6 text-4xl sm:text-5xl lg:text-[64px] font-extrabold leading-[1.05] tracking-tight text-brand-dark text-balance">
-            Автополив для газону <br className="hidden sm:block" />
-            <span className="text-brand-accent">в Одесі</span> та області
+            Автополив та догляд за садом <br className="hidden sm:block" />
+            <span className="text-brand-water">в Одесі</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed">
-            Робимо системи поливу з 2011 року. Працюємо з <span className="font-semibold text-foreground">Hunter</span>,{" "}
+            Встановлення систем поливу з 2011 року.{" "}
+            <span className="font-semibold text-foreground">Hunter</span>,{" "}
             <span className="font-semibold text-foreground">Rain Bird</span>,{" "}
-            <span className="font-semibold text-foreground">Irritec</span>. Гарантія на роботи та обладнання.
+            <span className="font-semibold text-foreground">Irritec</span>. Гарантія на всі роботи.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
             <a
               href="#lead"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-accent hover:bg-brand-accent-hover text-white px-7 py-4 text-base font-semibold shadow-glow transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-water hover:bg-brand-water-hover text-white px-7 py-4 min-h-[52px] text-base font-bold shadow-water transition-all hover:-translate-y-0.5 active:scale-[0.98]"
             >
-              Безкоштовний розрахунок
+              Розрахувати вартість
               <ArrowRight className="w-4 h-4" />
             </a>
             <a
               href="#portfolio"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-brand-dark/15 bg-card text-brand-dark px-7 py-4 text-base font-semibold hover:border-brand-dark/40 transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-brand-emerald text-brand-emerald bg-white px-7 py-4 min-h-[52px] text-base font-bold hover:bg-brand-light active:scale-[0.98] transition-all"
             >
-              Подивитись наші роботи
+              Наші роботи
             </a>
           </div>
-          <div className="mt-10 grid grid-cols-3 gap-4 sm:gap-6 max-w-lg">
-            {[
-              { k: "14", l: "років досвіду" },
-              { k: "100+", l: "об'єктів" },
-              { k: "3 роки", l: "гарантії" },
-            ].map((b) => (
-              <div key={b.l} className="text-left">
-                <div className="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">{b.k}</div>
-                <div className="text-xs sm:text-sm text-muted-foreground mt-1">{b.l}</div>
-              </div>
+          <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-brand-dark">
+            {["14 років досвіду", "100+ об'єктів", "Гарантія 3 роки", "Hunter & Rain Bird"].map((t) => (
+              <li key={t} className="inline-flex items-center gap-2">
+                <Check className="w-4 h-4 text-brand-accent" /> {t}
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
         <div className="relative reveal">
-          <div className="absolute -inset-4 bg-gradient-to-tr from-brand-accent/30 to-brand-dark/20 rounded-[28px] blur-2xl -z-10" />
+          <div className="absolute -inset-4 bg-gradient-to-tr from-brand-accent/30 to-brand-water/25 rounded-[28px] blur-2xl -z-10" />
           <div className="relative rounded-[24px] overflow-hidden shadow-glow ring-1 ring-brand-dark/10">
             <img
               src={heroImg}
@@ -218,7 +217,7 @@ function Hero() {
             />
             <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between bg-background/95 backdrop-blur-md rounded-2xl px-4 py-3 shadow-card">
               <div className="flex items-center gap-3">
-                <div className="grid place-items-center w-10 h-10 rounded-xl bg-brand-accent/15 text-brand-accent">
+                <div className="grid place-items-center w-10 h-10 rounded-xl bg-brand-water/10 text-brand-water">
                   <Check className="w-5 h-5" />
                 </div>
                 <div>
@@ -241,35 +240,38 @@ function Services() {
       icon: Droplets,
       title: "Автоматичний полив",
       desc: "Повноцінна система автополиву під ключ. Проєктування, монтаж, налаштування. Обладнання Hunter та Rain Bird.",
+      water: true,
     },
     {
       icon: Sprout,
       title: "Крапельне зрошення",
       desc: "Точкова подача води до кожної рослини. Економія до 70% води. Ідеально для клумб, чагарників, теплиць.",
+      water: true,
     },
     {
       icon: Leaf,
       title: "Рулонний газон",
       desc: "Готовий газон за один день. Якісний дерн, професійна укладка, гарантія приживання.",
+      water: false,
     },
   ];
   return (
-    <section id="services" className="py-20 lg:py-28">
+    <section id="services" className="py-20 lg:py-28 bg-white">
       <div className="container-x">
         <SectionHeader eyebrow="Послуги" title="Наші послуги" />
         <div className="mt-12 grid md:grid-cols-3 gap-5 lg:gap-6">
           {items.map((s, i) => (
             <article
               key={s.title}
-              className="reveal group relative bg-card border border-border/60 rounded-2xl p-7 lg:p-8 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-500"
+              className={`reveal group relative bg-card border-2 border-brand-accent/40 rounded-2xl p-7 lg:p-8 shadow-soft hover:-translate-y-1 transition-all duration-500 ${s.water ? "hover:shadow-water" : "hover:shadow-lime"}`}
               style={{ transitionDelay: `${i * 80}ms` }}
             >
-              <div className="grid place-items-center w-14 h-14 rounded-2xl bg-brand-dark text-brand-accent group-hover:bg-brand-accent group-hover:text-white transition-colors">
+              <div className={`grid place-items-center w-14 h-14 rounded-2xl transition-colors ${s.water ? "bg-brand-water/10 text-brand-water group-hover:bg-brand-water group-hover:text-white" : "bg-brand-accent/15 text-brand-emerald group-hover:bg-brand-accent group-hover:text-white"}`}>
                 <s.icon className="w-7 h-7" />
               </div>
               <h3 className="mt-6 text-xl font-bold text-brand-dark">{s.title}</h3>
               <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{s.desc}</p>
-              <a href="#lead" className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-accent hover:gap-3 transition-all">
+              <a href="#lead" className={`mt-6 inline-flex items-center gap-1.5 text-sm font-bold hover:gap-3 transition-all ${s.water ? "text-brand-water" : "text-brand-emerald"}`}>
                 Дізнатись більше <ArrowRight className="w-4 h-4" />
               </a>
             </article>
@@ -283,27 +285,30 @@ function Services() {
 /* ───────────────────────────── WHY US ───────────────────────────── */
 function WhyUs() {
   const items = [
-    { icon: Award, title: "Працюємо з 2011 року", desc: "Понад 14 років досвіду на ринку Одеси. Сотні реалізованих проєктів." },
-    { icon: Shield, title: "Тільки перевірені бренди", desc: "Hunter, Rain Bird, Irritec — світовий стандарт надійності." },
-    { icon: Ruler, title: "Індивідуальний проєкт", desc: "Не працюємо за шаблонами. Враховуємо рельєф, рослини, тиск води." },
-    { icon: BadgeCheck, title: "Гарантія на роботи", desc: "Несемо відповідальність за результат. Гарантія до 3 років." },
-    { icon: PiggyBank, title: "Економія води", desc: "Грамотна система не переливає і не сушить. Економите гроші щомісяця." },
-    { icon: Headphones, title: "Підтримка після монтажу", desc: "Не зникаємо після здачі об'єкта. Допомагаємо з обслуговуванням." },
+    { icon: Award, title: "14 років на ринку", desc: "Реалізували понад 100 проєктів в Одесі та області." },
+    { icon: Shield, title: "Hunter, Rain Bird, Irritec", desc: "Лише перевірені бренди з гарантією виробника." },
+    { icon: Ruler, title: "Індивідуальний проєкт", desc: "Враховуємо рельєф, рослини та тиск води." },
+    { icon: BadgeCheck, title: "Гарантія до 3 років", desc: "На роботи та обладнання." },
+    { icon: PiggyBank, title: "Економія води", desc: "Грамотна система не переливає і не сушить." },
+    { icon: Headphones, title: "Підтримка після монтажу", desc: "Допомагаємо з обслуговуванням після здачі." },
   ];
   return (
-    <section className="py-20 lg:py-28 bg-gradient-to-b from-background to-brand-accent/[0.04]">
+    <section className="py-20 lg:py-28 bg-brand-light">
       <div className="container-x">
         <SectionHeader eyebrow="Переваги" title="Чому обирають нас" />
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border/70 rounded-3xl overflow-hidden border border-border/70">
-          {items.map((it) => (
-            <div key={it.title} className="reveal bg-card p-7 lg:p-9 hover:bg-brand-accent/[0.04] transition-colors">
-              <div className="inline-grid place-items-center w-11 h-11 rounded-xl bg-brand-accent/10 text-brand-emerald">
-                <it.icon className="w-5 h-5" />
+        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
+          {items.map((it, i) => {
+            const water = i % 2 === 0;
+            return (
+              <div key={it.title} className="reveal bg-white rounded-2xl p-7 lg:p-8 shadow-soft hover:-translate-y-1 transition-all">
+                <div className={`inline-grid place-items-center w-12 h-12 rounded-full text-white ${water ? "bg-brand-water" : "bg-brand-accent"}`}>
+                  <it.icon className="w-6 h-6" />
+                </div>
+                <h3 className="mt-5 text-lg font-bold text-brand-dark">{it.title}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{it.desc}</p>
               </div>
-              <h3 className="mt-5 text-lg font-bold text-brand-dark">{it.title}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{it.desc}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
@@ -377,29 +382,36 @@ function Portfolio() {
 /* ───────────────────────────── PROCESS ───────────────────────────── */
 function Process() {
   const steps = [
-    { n: "01", title: "Залишаєте заявку", desc: "На сайті або по телефону. Передзвонимо протягом 2 годин." },
-    { n: "02", title: "Виїзд та заміри", desc: "Безкоштовно приїжджаємо, оглядаємо ділянку, обговорюємо побажання." },
-    { n: "03", title: "Проєкт та кошторис", desc: "Готуємо індивідуальний проєкт з прозорою ціною. Без прихованих доплат." },
-    { n: "04", title: "Монтаж та запуск", desc: "Виконуємо роботи в обумовлені терміни. Запускаємо систему та навчаємо користуватись." },
+    { n: "1", title: "Залишаєте заявку", desc: "На сайті або по телефону. Передзвонимо протягом 2 годин." },
+    { n: "2", title: "Безкоштовний виїзд", desc: "Приїжджаємо, оглядаємо ділянку, обговорюємо побажання." },
+    { n: "3", title: "Проєкт та кошторис", desc: "Готуємо індивідуальний проєкт. Без прихованих доплат." },
+    { n: "4", title: "Монтаж та запуск", desc: "Виконуємо в строк. Запускаємо та навчаємо користуватись." },
   ];
   return (
-    <section id="process" className="py-20 lg:py-28 bg-brand-dark text-background relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[480px] h-[480px] bg-brand-accent/15 rounded-full blur-3xl -z-0" />
+    <section id="process" className="py-20 lg:py-28 bg-brand-dark text-white relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[480px] h-[480px] bg-brand-accent/20 rounded-full blur-3xl -z-0" />
+      <div className="absolute bottom-0 left-0 w-[420px] h-[420px] bg-brand-water/15 rounded-full blur-3xl -z-0" />
       <div className="container-x relative">
         <SectionHeader eyebrow="Процес" title="Як ми працюємо" theme="dark" />
-        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4">
-          {steps.map((s, i) => (
-            <div key={s.n} className="reveal relative" style={{ transitionDelay: `${i * 100}ms` }}>
-              <div className="text-[64px] font-extrabold leading-none text-brand-accent/30 tracking-tighter">{s.n}</div>
-              <h3 className="mt-2 text-xl font-bold">{s.title}</h3>
-              <p className="mt-2.5 text-[15px] leading-relaxed text-background/70">{s.desc}</p>
-              {i < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-8 right-0 translate-x-1/2 text-brand-accent/40">
-                  <ArrowRight className="w-6 h-6" />
+        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+          {steps.map((s, i) => {
+            const water = i % 2 === 0;
+            return (
+              <div key={s.n} className="reveal relative" style={{ transitionDelay: `${i * 100}ms` }}>
+                <div className={`grid place-items-center w-14 h-14 rounded-full text-white text-xl font-extrabold ring-4 ring-white/10 ${water ? "bg-brand-water" : "bg-brand-accent"}`}>
+                  {s.n}
                 </div>
-              )}
-            </div>
-          ))}
+                <h3 className="mt-5 text-xl font-bold">{s.title}</h3>
+                <p className="mt-2.5 text-[15px] leading-relaxed text-white/75">{s.desc}</p>
+                {i < steps.length - 1 && (
+                  <div
+                    aria-hidden
+                    className="hidden lg:block absolute top-7 left-[56px] right-0 border-t-2 border-dashed border-brand-accent/50"
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -430,11 +442,11 @@ function Faq() {
                   onClick={() => setOpen(isOpen ? null : i)}
                   className="w-full flex items-center justify-between gap-6 py-6 text-left group"
                 >
-                  <span className="text-base sm:text-lg font-semibold text-brand-dark group-hover:text-brand-accent transition-colors">
+                  <span className={`text-base sm:text-lg font-semibold transition-colors ${isOpen ? "text-brand-water" : "text-brand-dark group-hover:text-brand-water"}`}>
                     {it.q}
                   </span>
                   <ChevronDown
-                    className={`w-5 h-5 shrink-0 text-brand-dark transition-transform ${isOpen ? "rotate-180" : ""}`}
+                    className={`w-5 h-5 shrink-0 transition-transform ${isOpen ? "rotate-180 text-brand-water" : "text-brand-dark"}`}
                   />
                 </button>
                 <div
@@ -490,14 +502,30 @@ function Contact() {
           <SectionHeader eyebrow="Контакти" title="Зв'яжіться з нами" align="left" />
           <div className="mt-10 space-y-5">
             <ContactRow icon={Phone} label="Віталій">
-              <a href={`tel:${PHONE_PRIMARY_TEL}`} className="text-lg font-bold text-brand-dark hover:text-brand-accent">
-                {PHONE_PRIMARY}
-              </a>
+              <div className="flex items-center gap-3 flex-wrap">
+                <a href={`tel:${PHONE_PRIMARY_TEL}`} className="text-lg font-bold text-brand-dark hover:text-brand-water">
+                  +38 {PHONE_PRIMARY}
+                </a>
+                <a href="viber://chat?number=%2B380930305820" aria-label="Viber" className="grid place-items-center w-8 h-8 rounded-full bg-[#7360F2] text-white hover:scale-110 transition-transform">
+                  <MessageCircle className="w-4 h-4" />
+                </a>
+                <a href="https://t.me/gardenkeeper_odesa" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="grid place-items-center w-8 h-8 rounded-full bg-[#229ED9] text-white hover:scale-110 transition-transform">
+                  <Send className="w-4 h-4" />
+                </a>
+              </div>
             </ContactRow>
             <ContactRow icon={Phone} label="Максим">
-              <a href={`tel:${PHONE_SECONDARY_TEL}`} className="text-lg font-bold text-brand-dark hover:text-brand-accent">
-                {PHONE_SECONDARY}
-              </a>
+              <div className="flex items-center gap-3 flex-wrap">
+                <a href={`tel:${PHONE_SECONDARY_TEL}`} className="text-lg font-bold text-brand-dark hover:text-brand-water">
+                  +38 {PHONE_SECONDARY}
+                </a>
+                <a href="viber://chat?number=%2B380993209841" aria-label="Viber" className="grid place-items-center w-8 h-8 rounded-full bg-[#7360F2] text-white hover:scale-110 transition-transform">
+                  <MessageCircle className="w-4 h-4" />
+                </a>
+                <a href="https://t.me/gardenkeeper_odesa" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="grid place-items-center w-8 h-8 rounded-full bg-[#229ED9] text-white hover:scale-110 transition-transform">
+                  <Send className="w-4 h-4" />
+                </a>
+              </div>
             </ContactRow>
             <ContactRow icon={Clock} label="Графік роботи">
               <span className="text-base font-semibold text-brand-dark">Пн–Сб: 9:00 — 19:00</span>
@@ -531,7 +559,7 @@ function ContactRow({
 }: { icon: React.ComponentType<{ className?: string }>; label: string; children: React.ReactNode }) {
   return (
     <div className="flex items-start gap-4">
-      <div className="grid place-items-center w-11 h-11 rounded-xl bg-brand-accent/10 text-brand-emerald shrink-0">
+      <div className="grid place-items-center w-11 h-11 rounded-xl bg-brand-water/10 text-brand-water shrink-0">
         <Icon className="w-5 h-5" />
       </div>
       <div className="flex flex-col">
@@ -551,7 +579,7 @@ function SocialBtn({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="grid place-items-center w-12 h-12 rounded-xl border border-border bg-card text-brand-dark hover:bg-brand-dark hover:text-background transition-colors"
+      className="grid place-items-center w-12 h-12 rounded-xl border border-border bg-card text-brand-dark hover:bg-brand-water hover:text-white hover:border-brand-water transition-colors"
     >
       <Icon className="w-5 h-5" />
     </a>
@@ -561,20 +589,48 @@ function SocialBtn({
 /* ───────────────────────────── FOOTER ───────────────────────────── */
 function Footer() {
   return (
-    <footer className="border-t border-border bg-card/60">
-      <div className="container-x py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <a href="#top" className="flex items-center gap-2.5">
-          <span className="grid place-items-center w-9 h-9 rounded-xl bg-brand-dark text-background">
-            <Droplets className="w-5 h-5 text-brand-accent" />
-          </span>
-          <span className="text-sm font-extrabold tracking-tight text-brand-dark">
-            Автополив <span className="text-muted-foreground font-medium">Одеса</span>
-          </span>
-        </a>
-        <p className="text-sm text-muted-foreground">© 2026 Автополив Одеса. Всі права захищені.</p>
-        <div className="flex items-center gap-5 text-sm">
-          <a href="#" className="text-muted-foreground hover:text-brand-dark">Політика конфіденційності</a>
-          <a href="#" className="text-muted-foreground hover:text-brand-dark">Договір оферти</a>
+    <footer className="bg-brand-dark text-white">
+      <div className="container-x py-14 grid gap-10 md:grid-cols-3">
+        <div>
+          <a href="#top" className="flex items-center gap-3">
+            <img src={logoImg} alt="Garden Keeper" className="w-12 h-12 rounded-full object-cover ring-2 ring-brand-accent/40" />
+            <span className="text-xl font-extrabold tracking-tight">Garden Keeper</span>
+          </a>
+          <p className="mt-4 text-sm text-white/70 leading-relaxed">Системи автополиву з 2011 року.<br />Одеса та Одеська область.</p>
+          <div className="mt-5 flex items-center gap-3">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="grid place-items-center w-10 h-10 rounded-full bg-white/10 hover:bg-brand-accent transition-colors">
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="grid place-items-center w-10 h-10 rounded-full bg-white/10 hover:bg-brand-accent transition-colors">
+              <Music2 className="w-5 h-5" />
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="grid place-items-center w-10 h-10 rounded-full bg-white/10 hover:bg-brand-accent transition-colors">
+              <Facebook className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 className="text-sm font-bold uppercase tracking-wider text-brand-accent">Навігація</h4>
+          <ul className="mt-4 space-y-2.5 text-sm text-white/80">
+            <li><a href="#services" className="hover:text-brand-accent transition-colors">Послуги</a></li>
+            <li><a href="#portfolio" className="hover:text-brand-accent transition-colors">Роботи</a></li>
+            <li><a href="#contact" className="hover:text-brand-accent transition-colors">Контакти</a></li>
+            <li><a href="#" className="hover:text-brand-accent transition-colors">Політика конфіденційності</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="text-sm font-bold uppercase tracking-wider text-brand-accent">Контакти</h4>
+          <ul className="mt-4 space-y-2.5 text-sm text-white/80">
+            <li><a href={`tel:${PHONE_PRIMARY_TEL}`} className="hover:text-brand-accent">Віталій: +38 {PHONE_PRIMARY}</a></li>
+            <li><a href={`tel:${PHONE_SECONDARY_TEL}`} className="hover:text-brand-accent">Максим: +38 {PHONE_SECONDARY}</a></li>
+            <li>Пн–Сб: 9:00 — 19:00</li>
+            <li>Одеса та область</li>
+          </ul>
+        </div>
+      </div>
+      <div className="border-t border-white/10">
+        <div className="container-x py-5 text-xs text-white/60 text-center">
+          © 2026 Garden Keeper. Всі права захищені.
         </div>
       </div>
     </footer>
@@ -585,22 +641,84 @@ function Footer() {
 function FloatingChat() {
   const [open, setOpen] = useState(false);
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-[88px] md:bottom-5 right-5 z-40 flex flex-col items-end gap-3">
       {open && (
         <div className="flex flex-col gap-2.5 animate-in fade-in slide-in-from-bottom-2 duration-200">
-          <ChatLink href="https://t.me/" label="Telegram" icon={Send} color="bg-[#229ED9]" />
-          <ChatLink href="viber://chat" label="Viber" icon={MessageCircle} color="bg-[#7360F2]" />
+          <ChatLink href="https://t.me/gardenkeeper_odesa" label="Telegram" icon={Send} color="bg-[#229ED9]" />
+          <ChatLink href="viber://chat?number=%2B380930305820" label="Viber" icon={MessageCircle} color="bg-[#7360F2]" />
           <ChatLink href={`tel:${PHONE_PRIMARY_TEL}`} label="Подзвонити" icon={Phone} color="bg-brand-accent" />
         </div>
       )}
       <button
         onClick={() => setOpen((v) => !v)}
-        className="grid place-items-center w-14 h-14 rounded-full bg-brand-accent hover:bg-brand-accent-hover text-white shadow-glow transition-transform hover:scale-105"
+        className="grid place-items-center w-14 h-14 rounded-full bg-brand-water hover:bg-brand-water-hover text-white shadow-water transition-transform hover:scale-105 active:scale-95"
         aria-label="Зв'язатись"
       >
-        {open ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
+        {open ? <X className="w-6 h-6" /> : <Phone className="w-6 h-6" />}
       </button>
     </div>
+  );
+}
+
+/* ───────────────────────────── SCROLL TO TOP ───────────────────────────── */
+function ScrollToTop() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  if (!show) return null;
+  return (
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      aria-label="Нагору"
+      className="fixed bottom-[88px] md:bottom-24 left-5 z-40 grid place-items-center w-11 h-11 rounded-full bg-white border border-brand-accent/40 text-brand-dark shadow-card hover:bg-brand-light active:scale-95 transition-all"
+    >
+      <ChevronUp className="w-5 h-5" />
+    </button>
+  );
+}
+
+/* ───────────────────────────── MOBILE BOTTOM BAR ───────────────────────────── */
+function MobileBottomBar() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-border shadow-[0_-4px_20px_-4px_rgba(27,94,32,0.15)]">
+        <div className="grid grid-cols-2">
+          <a
+            href={`tel:${PHONE_PRIMARY_TEL}`}
+            className="flex items-center justify-center gap-2 py-4 text-sm font-bold text-white bg-brand-water active:scale-[0.98] transition-transform"
+          >
+            <Phone className="w-4 h-4" /> Зателефонувати
+          </a>
+          <button
+            onClick={() => setOpen(true)}
+            className="flex items-center justify-center gap-2 py-4 text-sm font-bold text-white bg-brand-accent active:scale-[0.98] transition-transform"
+          >
+            <MessageCircle className="w-4 h-4" /> Написати
+          </button>
+        </div>
+      </div>
+      {open && (
+        <div className="md:hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-end" onClick={() => setOpen(false)}>
+          <div className="w-full bg-white rounded-t-3xl p-6 animate-in slide-in-from-bottom duration-200" onClick={(e) => e.stopPropagation()}>
+            <div className="mx-auto w-12 h-1.5 rounded-full bg-border mb-5" />
+            <h3 className="text-lg font-bold text-brand-dark text-center">Оберіть месенджер</h3>
+            <div className="mt-5 grid gap-3">
+              <a href="viber://chat?number=%2B380930305820" className="flex items-center gap-3 rounded-xl bg-[#7360F2] text-white px-5 py-4 font-bold">
+                <MessageCircle className="w-5 h-5" /> Viber
+              </a>
+              <a href="https://t.me/gardenkeeper_odesa" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-xl bg-[#229ED9] text-white px-5 py-4 font-bold">
+                <Send className="w-5 h-5" /> Telegram
+              </a>
+              <button onClick={() => setOpen(false)} className="mt-1 text-sm text-muted-foreground py-2">Скасувати</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

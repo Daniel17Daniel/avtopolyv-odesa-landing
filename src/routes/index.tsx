@@ -442,11 +442,11 @@ function Faq() {
                   onClick={() => setOpen(isOpen ? null : i)}
                   className="w-full flex items-center justify-between gap-6 py-6 text-left group"
                 >
-                  <span className="text-base sm:text-lg font-semibold text-brand-dark group-hover:text-brand-accent transition-colors">
+                  <span className={`text-base sm:text-lg font-semibold transition-colors ${isOpen ? "text-brand-water" : "text-brand-dark group-hover:text-brand-water"}`}>
                     {it.q}
                   </span>
                   <ChevronDown
-                    className={`w-5 h-5 shrink-0 text-brand-dark transition-transform ${isOpen ? "rotate-180" : ""}`}
+                    className={`w-5 h-5 shrink-0 transition-transform ${isOpen ? "rotate-180 text-brand-water" : "text-brand-dark"}`}
                   />
                 </button>
                 <div

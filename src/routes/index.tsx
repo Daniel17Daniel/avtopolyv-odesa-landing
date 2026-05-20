@@ -162,53 +162,51 @@ function Header() {
 function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <div className="absolute inset-x-0 top-0 h-[620px] -z-10 bg-gradient-to-b from-brand-accent/10 via-background to-background" />
+      <div className="absolute inset-x-0 top-0 h-[720px] -z-10 bg-gradient-to-b from-brand-light via-background to-background" />
+      <div className="absolute top-20 -left-32 w-[420px] h-[420px] bg-brand-accent/15 rounded-full blur-3xl -z-10" />
+      <div className="absolute top-40 -right-32 w-[480px] h-[480px] bg-brand-water/10 rounded-full blur-3xl -z-10" />
       <div className="container-x pt-10 lg:pt-16 pb-16 lg:pb-24 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-14 items-center">
         <div className="reveal">
-          <span className="inline-flex items-center gap-2 rounded-full border border-brand-accent/30 bg-brand-accent/10 text-brand-emerald px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider">
+          <span className="inline-flex items-center gap-2 rounded-full border border-brand-accent/40 bg-brand-light text-brand-dark px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-accent" />
             Працюємо з 2011 року
           </span>
           <h1 className="mt-6 text-4xl sm:text-5xl lg:text-[64px] font-extrabold leading-[1.05] tracking-tight text-brand-dark text-balance">
-            Автополив для газону <br className="hidden sm:block" />
-            <span className="text-brand-accent">в Одесі</span> та області
+            Автополив та догляд за садом <br className="hidden sm:block" />
+            <span className="text-brand-water">в Одесі</span>
           </h1>
           <p className="mt-6 max-w-xl text-lg text-muted-foreground leading-relaxed">
-            Робимо системи поливу з 2011 року. Працюємо з <span className="font-semibold text-foreground">Hunter</span>,{" "}
+            Встановлення систем поливу з 2011 року.{" "}
+            <span className="font-semibold text-foreground">Hunter</span>,{" "}
             <span className="font-semibold text-foreground">Rain Bird</span>,{" "}
-            <span className="font-semibold text-foreground">Irritec</span>. Гарантія на роботи та обладнання.
+            <span className="font-semibold text-foreground">Irritec</span>. Гарантія на всі роботи.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
             <a
               href="#lead"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-accent hover:bg-brand-accent-hover text-white px-7 py-4 text-base font-semibold shadow-glow transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-water hover:bg-brand-water-hover text-white px-7 py-4 min-h-[52px] text-base font-bold shadow-water transition-all hover:-translate-y-0.5 active:scale-[0.98]"
             >
-              Безкоштовний розрахунок
+              Розрахувати вартість
               <ArrowRight className="w-4 h-4" />
             </a>
             <a
               href="#portfolio"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-brand-dark/15 bg-card text-brand-dark px-7 py-4 text-base font-semibold hover:border-brand-dark/40 transition-colors"
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-brand-emerald text-brand-emerald bg-white px-7 py-4 min-h-[52px] text-base font-bold hover:bg-brand-light active:scale-[0.98] transition-all"
             >
-              Подивитись наші роботи
+              Наші роботи
             </a>
           </div>
-          <div className="mt-10 grid grid-cols-3 gap-4 sm:gap-6 max-w-lg">
-            {[
-              { k: "14", l: "років досвіду" },
-              { k: "100+", l: "об'єктів" },
-              { k: "3 роки", l: "гарантії" },
-            ].map((b) => (
-              <div key={b.l} className="text-left">
-                <div className="text-2xl sm:text-3xl font-extrabold text-brand-dark tracking-tight">{b.k}</div>
-                <div className="text-xs sm:text-sm text-muted-foreground mt-1">{b.l}</div>
-              </div>
+          <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-brand-dark">
+            {["14 років досвіду", "100+ об'єктів", "Гарантія 3 роки", "Hunter & Rain Bird"].map((t) => (
+              <li key={t} className="inline-flex items-center gap-2">
+                <Check className="w-4 h-4 text-brand-accent" /> {t}
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
 
         <div className="relative reveal">
-          <div className="absolute -inset-4 bg-gradient-to-tr from-brand-accent/30 to-brand-dark/20 rounded-[28px] blur-2xl -z-10" />
+          <div className="absolute -inset-4 bg-gradient-to-tr from-brand-accent/30 to-brand-water/25 rounded-[28px] blur-2xl -z-10" />
           <div className="relative rounded-[24px] overflow-hidden shadow-glow ring-1 ring-brand-dark/10">
             <img
               src={heroImg}
@@ -219,7 +217,7 @@ function Hero() {
             />
             <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between bg-background/95 backdrop-blur-md rounded-2xl px-4 py-3 shadow-card">
               <div className="flex items-center gap-3">
-                <div className="grid place-items-center w-10 h-10 rounded-xl bg-brand-accent/15 text-brand-accent">
+                <div className="grid place-items-center w-10 h-10 rounded-xl bg-brand-water/10 text-brand-water">
                   <Check className="w-5 h-5" />
                 </div>
                 <div>

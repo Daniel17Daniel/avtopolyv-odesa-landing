@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import {
   Droplets, Sprout, Leaf, Award, Shield, Ruler, BadgeCheck, PiggyBank, Headphones,
   Phone, MessageCircle, Send, MapPin, Clock, Instagram, ArrowRight, Check, Menu, X,
-  ChevronDown,
+  ChevronDown, ChevronUp, Facebook, Music2,
 } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { LeadQuiz } from "@/components/LeadQuiz";
+import logoImg from "@/assets/garden-keeper-logo.jpg";
 import heroImg from "@/assets/hero-sprinkler.jpg";
 import p1 from "@/assets/portfolio-1.jpg";
 import p2 from "@/assets/portfolio-2.jpg";
@@ -48,7 +49,7 @@ const PHONE_SECONDARY_TEL = "+380993209841";
 function LandingPage() {
   useReveal();
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground pb-[68px] md:pb-0">
       <Header />
       <main>
         <Hero />
@@ -62,6 +63,8 @@ function LandingPage() {
       </main>
       <Footer />
       <FloatingChat />
+      <ScrollToTop />
+      <MobileBottomBar />
     </div>
   );
 }

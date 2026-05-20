@@ -382,29 +382,36 @@ function Portfolio() {
 /* ───────────────────────────── PROCESS ───────────────────────────── */
 function Process() {
   const steps = [
-    { n: "01", title: "Залишаєте заявку", desc: "На сайті або по телефону. Передзвонимо протягом 2 годин." },
-    { n: "02", title: "Виїзд та заміри", desc: "Безкоштовно приїжджаємо, оглядаємо ділянку, обговорюємо побажання." },
-    { n: "03", title: "Проєкт та кошторис", desc: "Готуємо індивідуальний проєкт з прозорою ціною. Без прихованих доплат." },
-    { n: "04", title: "Монтаж та запуск", desc: "Виконуємо роботи в обумовлені терміни. Запускаємо систему та навчаємо користуватись." },
+    { n: "1", title: "Залишаєте заявку", desc: "На сайті або по телефону. Передзвонимо протягом 2 годин." },
+    { n: "2", title: "Безкоштовний виїзд", desc: "Приїжджаємо, оглядаємо ділянку, обговорюємо побажання." },
+    { n: "3", title: "Проєкт та кошторис", desc: "Готуємо індивідуальний проєкт. Без прихованих доплат." },
+    { n: "4", title: "Монтаж та запуск", desc: "Виконуємо в строк. Запускаємо та навчаємо користуватись." },
   ];
   return (
-    <section id="process" className="py-20 lg:py-28 bg-brand-dark text-background relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[480px] h-[480px] bg-brand-accent/15 rounded-full blur-3xl -z-0" />
+    <section id="process" className="py-20 lg:py-28 bg-brand-dark text-white relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[480px] h-[480px] bg-brand-accent/20 rounded-full blur-3xl -z-0" />
+      <div className="absolute bottom-0 left-0 w-[420px] h-[420px] bg-brand-water/15 rounded-full blur-3xl -z-0" />
       <div className="container-x relative">
         <SectionHeader eyebrow="Процес" title="Як ми працюємо" theme="dark" />
-        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4">
-          {steps.map((s, i) => (
-            <div key={s.n} className="reveal relative" style={{ transitionDelay: `${i * 100}ms` }}>
-              <div className="text-[64px] font-extrabold leading-none text-brand-accent/30 tracking-tighter">{s.n}</div>
-              <h3 className="mt-2 text-xl font-bold">{s.title}</h3>
-              <p className="mt-2.5 text-[15px] leading-relaxed text-background/70">{s.desc}</p>
-              {i < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-8 right-0 translate-x-1/2 text-brand-accent/40">
-                  <ArrowRight className="w-6 h-6" />
+        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+          {steps.map((s, i) => {
+            const water = i % 2 === 0;
+            return (
+              <div key={s.n} className="reveal relative" style={{ transitionDelay: `${i * 100}ms` }}>
+                <div className={`grid place-items-center w-14 h-14 rounded-full text-white text-xl font-extrabold ring-4 ring-white/10 ${water ? "bg-brand-water" : "bg-brand-accent"}`}>
+                  {s.n}
                 </div>
-              )}
-            </div>
-          ))}
+                <h3 className="mt-5 text-xl font-bold">{s.title}</h3>
+                <p className="mt-2.5 text-[15px] leading-relaxed text-white/75">{s.desc}</p>
+                {i < steps.length - 1 && (
+                  <div
+                    aria-hidden
+                    className="hidden lg:block absolute top-7 left-[56px] right-0 border-t-2 border-dashed border-brand-accent/50"
+                  />
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

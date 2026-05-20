@@ -439,7 +439,7 @@ function Step5Conditions({
         type="button"
         onClick={onNext}
         disabled={values.length === 0}
-        className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-brand-accent hover:bg-brand-accent-hover text-white py-4 text-base font-semibold shadow-glow transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-brand-water hover:bg-brand-water-hover text-white py-4 min-h-[52px] text-base font-bold shadow-water transition-all disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.98]"
       >
         Продовжити <ArrowRight className="w-4 h-4" />
       </button>

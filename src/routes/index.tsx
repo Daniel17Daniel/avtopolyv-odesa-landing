@@ -88,23 +88,21 @@ function Header() {
   return (
     <header
       className={`sticky top-0 z-50 w-full transition-all ${
-        scrolled ? "bg-background/85 backdrop-blur-xl border-b border-border/70" : "bg-background/0"
+        scrolled ? "bg-white/95 backdrop-blur-xl shadow-[0_2px_20px_-8px_rgba(27,94,32,0.18)]" : "bg-white/80 backdrop-blur-md"
       }`}
     >
       <div className="container-x flex h-16 sm:h-20 items-center justify-between gap-6">
-        <a href="#top" className="flex items-center gap-2.5 group">
-          <span className="grid place-items-center w-9 h-9 rounded-xl bg-brand-dark text-background shadow-soft">
-            <Droplets className="w-5 h-5 text-brand-accent" />
-          </span>
+        <a href="#top" className="flex items-center gap-3 group">
+          <img src={logoImg} alt="Garden Keeper" className="w-11 h-11 sm:w-12 sm:h-12 rounded-full object-cover ring-2 ring-brand-accent/40" />
           <span className="flex flex-col leading-tight">
-            <span className="text-[15px] font-extrabold tracking-tight text-brand-dark">Автополив</span>
-            <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">Одеса</span>
+            <span className="text-[16px] sm:text-[18px] font-extrabold tracking-tight text-brand-dark">Garden Keeper</span>
+            <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground hidden sm:block">Автополив · Одеса</span>
           </span>
         </a>
 
         <nav className="hidden lg:flex items-center gap-9">
           {nav.map((n) => (
-            <a key={n.href} href={n.href} className="text-sm font-medium text-foreground/80 hover:text-brand-dark transition-colors">
+            <a key={n.href} href={n.href} className="text-sm font-semibold text-foreground/80 hover:text-brand-water transition-colors">
               {n.label}
             </a>
           ))}
@@ -115,18 +113,18 @@ function Header() {
             href={`tel:${PHONE_PRIMARY_TEL}`}
             className="hidden md:inline-flex items-center gap-2 text-sm font-semibold text-brand-dark"
           >
-            <Phone className="w-4 h-4 text-brand-accent" />
+            <Phone className="w-4 h-4 text-brand-water" />
             {PHONE_PRIMARY}
           </a>
           <a
             href="#lead"
-            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-brand-dark text-background px-5 py-2.5 text-sm font-semibold hover:bg-brand-emerald transition-colors shadow-soft"
+            className="hidden sm:inline-flex items-center gap-2 rounded-full bg-brand-water text-white px-5 py-2.5 text-sm font-bold hover:bg-brand-water-hover active:scale-[0.98] transition-all shadow-water"
           >
-            Розрахунок безкоштовно
+            Розрахунок
           </a>
           <a
             href={`tel:${PHONE_PRIMARY_TEL}`}
-            className="sm:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-accent text-white"
+            className="sm:hidden inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand-water text-white"
             aria-label="Подзвонити"
           >
             <Phone className="w-4 h-4" />

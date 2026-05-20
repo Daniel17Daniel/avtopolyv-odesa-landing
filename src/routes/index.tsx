@@ -502,14 +502,30 @@ function Contact() {
           <SectionHeader eyebrow="Контакти" title="Зв'яжіться з нами" align="left" />
           <div className="mt-10 space-y-5">
             <ContactRow icon={Phone} label="Віталій">
-              <a href={`tel:${PHONE_PRIMARY_TEL}`} className="text-lg font-bold text-brand-dark hover:text-brand-accent">
-                {PHONE_PRIMARY}
-              </a>
+              <div className="flex items-center gap-3 flex-wrap">
+                <a href={`tel:${PHONE_PRIMARY_TEL}`} className="text-lg font-bold text-brand-dark hover:text-brand-water">
+                  +38 {PHONE_PRIMARY}
+                </a>
+                <a href="viber://chat?number=%2B380930305820" aria-label="Viber" className="grid place-items-center w-8 h-8 rounded-full bg-[#7360F2] text-white hover:scale-110 transition-transform">
+                  <MessageCircle className="w-4 h-4" />
+                </a>
+                <a href="https://t.me/gardenkeeper_odesa" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="grid place-items-center w-8 h-8 rounded-full bg-[#229ED9] text-white hover:scale-110 transition-transform">
+                  <Send className="w-4 h-4" />
+                </a>
+              </div>
             </ContactRow>
             <ContactRow icon={Phone} label="Максим">
-              <a href={`tel:${PHONE_SECONDARY_TEL}`} className="text-lg font-bold text-brand-dark hover:text-brand-accent">
-                {PHONE_SECONDARY}
-              </a>
+              <div className="flex items-center gap-3 flex-wrap">
+                <a href={`tel:${PHONE_SECONDARY_TEL}`} className="text-lg font-bold text-brand-dark hover:text-brand-water">
+                  +38 {PHONE_SECONDARY}
+                </a>
+                <a href="viber://chat?number=%2B380993209841" aria-label="Viber" className="grid place-items-center w-8 h-8 rounded-full bg-[#7360F2] text-white hover:scale-110 transition-transform">
+                  <MessageCircle className="w-4 h-4" />
+                </a>
+                <a href="https://t.me/gardenkeeper_odesa" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="grid place-items-center w-8 h-8 rounded-full bg-[#229ED9] text-white hover:scale-110 transition-transform">
+                  <Send className="w-4 h-4" />
+                </a>
+              </div>
             </ContactRow>
             <ContactRow icon={Clock} label="Графік роботи">
               <span className="text-base font-semibold text-brand-dark">Пн–Сб: 9:00 — 19:00</span>
@@ -543,7 +559,7 @@ function ContactRow({
 }: { icon: React.ComponentType<{ className?: string }>; label: string; children: React.ReactNode }) {
   return (
     <div className="flex items-start gap-4">
-      <div className="grid place-items-center w-11 h-11 rounded-xl bg-brand-accent/10 text-brand-emerald shrink-0">
+      <div className="grid place-items-center w-11 h-11 rounded-xl bg-brand-water/10 text-brand-water shrink-0">
         <Icon className="w-5 h-5" />
       </div>
       <div className="flex flex-col">
@@ -563,7 +579,7 @@ function SocialBtn({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="grid place-items-center w-12 h-12 rounded-xl border border-border bg-card text-brand-dark hover:bg-brand-dark hover:text-background transition-colors"
+      className="grid place-items-center w-12 h-12 rounded-xl border border-border bg-card text-brand-dark hover:bg-brand-water hover:text-white hover:border-brand-water transition-colors"
     >
       <Icon className="w-5 h-5" />
     </a>
@@ -573,20 +589,48 @@ function SocialBtn({
 /* ───────────────────────────── FOOTER ───────────────────────────── */
 function Footer() {
   return (
-    <footer className="border-t border-border bg-card/60">
-      <div className="container-x py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <a href="#top" className="flex items-center gap-2.5">
-          <span className="grid place-items-center w-9 h-9 rounded-xl bg-brand-dark text-background">
-            <Droplets className="w-5 h-5 text-brand-accent" />
-          </span>
-          <span className="text-sm font-extrabold tracking-tight text-brand-dark">
-            Автополив <span className="text-muted-foreground font-medium">Одеса</span>
-          </span>
-        </a>
-        <p className="text-sm text-muted-foreground">© 2026 Автополив Одеса. Всі права захищені.</p>
-        <div className="flex items-center gap-5 text-sm">
-          <a href="#" className="text-muted-foreground hover:text-brand-dark">Політика конфіденційності</a>
-          <a href="#" className="text-muted-foreground hover:text-brand-dark">Договір оферти</a>
+    <footer className="bg-brand-dark text-white">
+      <div className="container-x py-14 grid gap-10 md:grid-cols-3">
+        <div>
+          <a href="#top" className="flex items-center gap-3">
+            <img src={logoImg} alt="Garden Keeper" className="w-12 h-12 rounded-full object-cover ring-2 ring-brand-accent/40" />
+            <span className="text-xl font-extrabold tracking-tight">Garden Keeper</span>
+          </a>
+          <p className="mt-4 text-sm text-white/70 leading-relaxed">Системи автополиву з 2011 року.<br />Одеса та Одеська область.</p>
+          <div className="mt-5 flex items-center gap-3">
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="grid place-items-center w-10 h-10 rounded-full bg-white/10 hover:bg-brand-accent transition-colors">
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok" className="grid place-items-center w-10 h-10 rounded-full bg-white/10 hover:bg-brand-accent transition-colors">
+              <Music2 className="w-5 h-5" />
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="grid place-items-center w-10 h-10 rounded-full bg-white/10 hover:bg-brand-accent transition-colors">
+              <Facebook className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 className="text-sm font-bold uppercase tracking-wider text-brand-accent">Навігація</h4>
+          <ul className="mt-4 space-y-2.5 text-sm text-white/80">
+            <li><a href="#services" className="hover:text-brand-accent transition-colors">Послуги</a></li>
+            <li><a href="#portfolio" className="hover:text-brand-accent transition-colors">Роботи</a></li>
+            <li><a href="#contact" className="hover:text-brand-accent transition-colors">Контакти</a></li>
+            <li><a href="#" className="hover:text-brand-accent transition-colors">Політика конфіденційності</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 className="text-sm font-bold uppercase tracking-wider text-brand-accent">Контакти</h4>
+          <ul className="mt-4 space-y-2.5 text-sm text-white/80">
+            <li><a href={`tel:${PHONE_PRIMARY_TEL}`} className="hover:text-brand-accent">Віталій: +38 {PHONE_PRIMARY}</a></li>
+            <li><a href={`tel:${PHONE_SECONDARY_TEL}`} className="hover:text-brand-accent">Максим: +38 {PHONE_SECONDARY}</a></li>
+            <li>Пн–Сб: 9:00 — 19:00</li>
+            <li>Одеса та область</li>
+          </ul>
+        </div>
+      </div>
+      <div className="border-t border-white/10">
+        <div className="container-x py-5 text-xs text-white/60 text-center">
+          © 2026 Garden Keeper. Всі права захищені.
         </div>
       </div>
     </footer>
@@ -597,22 +641,84 @@ function Footer() {
 function FloatingChat() {
   const [open, setOpen] = useState(false);
   return (
-    <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-[88px] md:bottom-5 right-5 z-40 flex flex-col items-end gap-3">
       {open && (
         <div className="flex flex-col gap-2.5 animate-in fade-in slide-in-from-bottom-2 duration-200">
-          <ChatLink href="https://t.me/" label="Telegram" icon={Send} color="bg-[#229ED9]" />
-          <ChatLink href="viber://chat" label="Viber" icon={MessageCircle} color="bg-[#7360F2]" />
+          <ChatLink href="https://t.me/gardenkeeper_odesa" label="Telegram" icon={Send} color="bg-[#229ED9]" />
+          <ChatLink href="viber://chat?number=%2B380930305820" label="Viber" icon={MessageCircle} color="bg-[#7360F2]" />
           <ChatLink href={`tel:${PHONE_PRIMARY_TEL}`} label="Подзвонити" icon={Phone} color="bg-brand-accent" />
         </div>
       )}
       <button
         onClick={() => setOpen((v) => !v)}
-        className="grid place-items-center w-14 h-14 rounded-full bg-brand-accent hover:bg-brand-accent-hover text-white shadow-glow transition-transform hover:scale-105"
+        className="grid place-items-center w-14 h-14 rounded-full bg-brand-water hover:bg-brand-water-hover text-white shadow-water transition-transform hover:scale-105 active:scale-95"
         aria-label="Зв'язатись"
       >
-        {open ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
+        {open ? <X className="w-6 h-6" /> : <Phone className="w-6 h-6" />}
       </button>
     </div>
+  );
+}
+
+/* ───────────────────────────── SCROLL TO TOP ───────────────────────────── */
+function ScrollToTop() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > 400);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  if (!show) return null;
+  return (
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      aria-label="Нагору"
+      className="fixed bottom-[88px] md:bottom-24 left-5 z-40 grid place-items-center w-11 h-11 rounded-full bg-white border border-brand-accent/40 text-brand-dark shadow-card hover:bg-brand-light active:scale-95 transition-all"
+    >
+      <ChevronUp className="w-5 h-5" />
+    </button>
+  );
+}
+
+/* ───────────────────────────── MOBILE BOTTOM BAR ───────────────────────────── */
+function MobileBottomBar() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-border shadow-[0_-4px_20px_-4px_rgba(27,94,32,0.15)]">
+        <div className="grid grid-cols-2">
+          <a
+            href={`tel:${PHONE_PRIMARY_TEL}`}
+            className="flex items-center justify-center gap-2 py-4 text-sm font-bold text-white bg-brand-water active:scale-[0.98] transition-transform"
+          >
+            <Phone className="w-4 h-4" /> Зателефонувати
+          </a>
+          <button
+            onClick={() => setOpen(true)}
+            className="flex items-center justify-center gap-2 py-4 text-sm font-bold text-white bg-brand-accent active:scale-[0.98] transition-transform"
+          >
+            <MessageCircle className="w-4 h-4" /> Написати
+          </button>
+        </div>
+      </div>
+      {open && (
+        <div className="md:hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-end" onClick={() => setOpen(false)}>
+          <div className="w-full bg-white rounded-t-3xl p-6 animate-in slide-in-from-bottom duration-200" onClick={(e) => e.stopPropagation()}>
+            <div className="mx-auto w-12 h-1.5 rounded-full bg-border mb-5" />
+            <h3 className="text-lg font-bold text-brand-dark text-center">Оберіть месенджер</h3>
+            <div className="mt-5 grid gap-3">
+              <a href="viber://chat?number=%2B380930305820" className="flex items-center gap-3 rounded-xl bg-[#7360F2] text-white px-5 py-4 font-bold">
+                <MessageCircle className="w-5 h-5" /> Viber
+              </a>
+              <a href="https://t.me/gardenkeeper_odesa" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 rounded-xl bg-[#229ED9] text-white px-5 py-4 font-bold">
+                <Send className="w-5 h-5" /> Telegram
+              </a>
+              <button onClick={() => setOpen(false)} className="mt-1 text-sm text-muted-foreground py-2">Скасувати</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

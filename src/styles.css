@@ -44,8 +44,9 @@
 
   --shadow-soft: 0 4px 20px -4px oklch(0.15 0.05 160 / 0.08);
   --shadow-card: 0 10px 30px -10px oklch(0.15 0.05 160 / 0.12);
-  --shadow-glow: 0 20px 60px -20px #1976D2 / 0.45;
+  --shadow-glow: 0 20px 60px -20px rgba(25, 118, 210, 0.45);
   --shadow-water: 0 20px 60px -20px rgba(25, 118, 210, 0.35);
+  --shadow-lime: 0 20px 60px -20px rgba(139, 195, 74, 0.45);
 }
 
 :root {

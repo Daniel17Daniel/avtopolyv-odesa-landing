@@ -474,7 +474,7 @@ function Step6Result({
           ].map((c) => (
             <div key={c.title} className="rounded-xl border border-brand-accent/30 bg-brand-light p-3.5">
               <div className="grid place-items-center w-9 h-9 rounded-lg bg-brand-accent text-white">
-                <c.icon className="w-4.5 h-4.5" />
+                <c.icon className="w-5 h-5" />
               </div>
               <div className="mt-2 text-[14px] font-bold text-brand-dark">{c.title}</div>
               <div className="text-[12px] text-muted-foreground mt-0.5 leading-snug">{c.desc}</div>

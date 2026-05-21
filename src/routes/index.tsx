@@ -81,6 +81,7 @@ function LandingPage() {
         <Reviews />
         <Team />
         <WhyUs />
+        <PhotoStrip />
         <QuizSection ref={quizSectionRef} prefilledService={prefilledService} />
         <Faq />
         <Contact />
@@ -186,9 +187,8 @@ function Header() {
 
 /* ───────────── HERO ───────────── */
 function Hero() {
-  const words = ["Ваш сад", "завжди", "зеленим"];
   return (
-    <section id="top" className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
+    <section id="top" className="relative h-[100svh] min-h-[640px] w-full overflow-hidden noise-overlay">
       <img src={heroImg} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover -z-10" />
       {/* Overlay */}
       <div className="absolute inset-0 -z-10 opacity-90" style={{ background: "linear-gradient(135deg, #0f3d20 0%, #1B5E20 50%, #1976D2 100%)" }} />
@@ -197,44 +197,47 @@ function Hero() {
         style={{ background: "linear-gradient(135deg, rgba(27,94,32,0.85) 0%, rgba(25,118,210,0.45) 100%)" }}
       />
       {/* Blob */}
-      <svg className="absolute -bottom-1 left-0 right-0 w-full text-background" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden>
-        <path fill="currentColor" d="M0,64 C240,120 480,16 720,40 C960,64 1200,112 1440,72 L1440,100 L0,100 Z" />
+      <svg className="absolute -bottom-1 left-0 right-0 w-full text-background" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden>
+        <path fill="currentColor" d="M0,48 C360,72 1080,24 1440,56 L1440,80 L0,80 Z" />
       </svg>
 
       <div className="relative h-full container-x flex flex-col justify-center items-center text-center text-white pt-16">
-        <span className="glass rounded-full px-4 py-1.5 text-[12px] font-semibold tracking-wide text-white inline-flex items-center gap-2">
-          🌿 Автополив • Одеса з 2011
+        <span className="glass rounded-full pl-3 pr-4 py-1.5 text-[11px] font-semibold uppercase text-white inline-flex items-center gap-2" style={{ letterSpacing: "0.18em" }}>
+          <span aria-hidden className="w-2 h-2 rounded-full bg-brand-accent" />
+          Автополив в Одесі з 2011
         </span>
 
-        <h1 className="mt-6 font-extrabold tracking-tight leading-[0.95] text-[clamp(2.6rem,8vw,6.5rem)] text-balance">
-          {words.map((w, i) => (
-            <span key={i} className="word-rise mr-3" style={{ animationDelay: `${0.15 + i * 0.25}s` }}>{w}</span>
-          ))}
+        <h1 className="mt-6 font-display text-[clamp(2.6rem,8vw,6.5rem)] text-balance" style={{ fontWeight: 700, letterSpacing: "-0.04em", lineHeight: 0.95 }}>
+          <span className="word-rise mr-3" style={{ animationDelay: "0.15s" }}>Ваш сад</span>
+          <span className="word-rise mr-3 italic text-brand-accent" style={{ animationDelay: "0.40s", fontWeight: 600 }}>завжди</span>
+          <span className="word-rise" style={{ animationDelay: "0.65s" }}>зеленим</span>
         </h1>
 
-        <p className="mt-6 max-w-xl text-base sm:text-lg text-white/80 word-rise" style={{ animationDelay: "1.1s" }}>
+        <p className="mt-8 max-w-2xl text-base sm:text-lg font-normal text-white/80 word-rise" style={{ animationDelay: "1.1s" }}>
           Системи автополиву під ключ. Hunter, Rain Bird, Irritec. 14 років в Одесі.
         </p>
 
         <div className="mt-8 flex flex-col sm:flex-row gap-3 word-rise" style={{ animationDelay: "1.3s" }}>
           <a href="#quiz"
-             className="ripple inline-flex items-center justify-center gap-2 rounded-full bg-white text-brand-dark px-7 py-4 min-h-[52px] text-base font-bold shadow-2xl transition-all hover:scale-[1.03] active:scale-[0.97]">
+             className="ripple inline-flex items-center justify-center gap-2 rounded-full bg-white text-brand-dark px-7 py-4 min-h-[52px] text-base font-bold border border-transparent shadow-md hover:shadow-xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white">
             Розрахувати вартість
           </a>
           <a href="#process"
-             className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/70 text-white px-7 py-4 min-h-[52px] text-base font-bold hover:bg-white/10 transition-all">
+             className="inline-flex items-center justify-center gap-2 rounded-full border border-white/50 text-white px-7 py-4 min-h-[52px] text-base font-bold hover:bg-white/10 hover:border-white transition-all duration-200">
             Як ми працюємо →
           </a>
         </div>
 
-        <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] font-medium text-white/75 word-rise" style={{ animationDelay: "1.5s" }}>
-          <li className="inline-flex items-center gap-1.5"><Check className="w-4 h-4 text-brand-accent" /> 14 років досвіду</li>
-          <li className="inline-flex items-center gap-1.5"><Check className="w-4 h-4 text-brand-accent" /> 100+ об'єктів</li>
-          <li className="inline-flex items-center gap-1.5"><Check className="w-4 h-4 text-brand-accent" /> Гарантія 3 роки</li>
+        <ul className="mt-8 flex flex-wrap items-center justify-center gap-2 word-rise" style={{ animationDelay: "1.5s" }}>
+          {["14 років досвіду", "100+ об'єктів", "Гарантія 3 роки"].map((t) => (
+            <li key={t} className="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-2 text-[13px] font-medium text-white">
+              <Check className="w-3 h-3 text-brand-accent" strokeWidth={2.5} /> {t}
+            </li>
+          ))}
         </ul>
 
         <a href="#services" className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/80 hover:text-white scroll-bounce" aria-label="Прокрутити">
-          <ArrowDown className="w-6 h-6" />
+          <ArrowDown className="w-6 h-6" strokeWidth={1.5} />
         </a>
       </div>
     </section>
@@ -268,10 +271,11 @@ function Services({ onPick }: { onPick: (svc: PrefilledService) => void }) {
               role="button" tabIndex={0}
               onClick={() => onPick(s.svc)}
               onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onPick(s.svc); } }}
-              className="reveal group relative overflow-hidden rounded-3xl p-8 min-h-[280px] flex flex-col justify-between text-white transition-all duration-500 hover:-translate-y-2 cursor-pointer hover:shadow-[0_30px_80px_-30px_rgba(25,118,210,0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-water"
+              className="reveal noise-overlay group relative overflow-hidden p-8 min-h-[280px] flex flex-col justify-between text-white transition-all duration-300 hover:-translate-y-2 cursor-pointer shadow-md hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-water"
               style={{
                 background: "linear-gradient(140deg, #0f3d20 0%, #1B5E20 60%, #2E7D32 100%)",
                 transitionDelay: `${i * 80}ms`,
+                borderRadius: "22px",
               }}
             >
               <div
@@ -279,14 +283,14 @@ function Services({ onPick }: { onPick: (svc: PrefilledService) => void }) {
                 className="absolute inset-0 opacity-[0.07] pointer-events-none"
                 style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "18px 18px" }}
               />
-              <span className="absolute top-4 right-6 text-[88px] font-black leading-none text-white/10 group-hover:text-brand-accent/70 transition-colors duration-500">
+              <span className="absolute top-4 right-6 font-display text-[96px] leading-none text-brand-earth-light/40 group-hover:text-brand-earth-light/80 transition-colors duration-500 tabular-nums" style={{ fontWeight: 700, letterSpacing: "-0.04em" }}>
                 {s.n}
               </span>
               <div className="relative">
                 <h3 className="text-2xl font-extrabold tracking-tight">{s.title}</h3>
                 <ul className="mt-5 space-y-2 text-[14px] text-white/80">
                   {s.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 text-brand-accent shrink-0" /> {b}</li>
+                    <li key={b} className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 text-brand-accent shrink-0" strokeWidth={1.5} /> {b}</li>
                   ))}
                 </ul>
               </div>
@@ -310,15 +314,15 @@ function Stats() {
     { v: 2, suffix: "", label: "години до передзвону" },
   ];
   return (
-    <section className="relative py-16 lg:py-20 text-white overflow-hidden" style={{ background: "linear-gradient(135deg, #0F3D2E 0%, #1B5E20 50%, #2E7D32 100%)" }}>
+    <section className="relative py-16 lg:py-20 text-white overflow-hidden noise-overlay" style={{ background: "linear-gradient(135deg, #0F3D2E 0%, #1B5E20 50%, #2E7D32 100%)" }}>
       <div className="container-x relative">
-        <div className="grid grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-white/15">
+        <div className="grid grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-white/10">
           {items.map((it, i) => (
             <div key={i} className="px-4 py-6 text-center reveal" style={{ transitionDelay: `${i * 80}ms` }}>
-              <div className="text-5xl sm:text-6xl font-black tracking-tight leading-none tabular-nums">
+              <div className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-none tabular-nums" style={{ letterSpacing: "-0.03em" }}>
                 <Counter to={it.v} />{it.suffix}
               </div>
-              <div className="mt-3 text-[13px] sm:text-sm uppercase tracking-wider text-white/60 font-medium">{it.label}</div>
+              <div className="mt-3 text-[12px] sm:text-[13px] uppercase text-white/60 font-semibold" style={{ letterSpacing: "0.2em" }}>{it.label}</div>
             </div>
           ))}
         </div>
@@ -390,7 +394,7 @@ function Process() {
     { n: "4", title: "Монтаж та запуск", desc: "Здаємо в строк, навчаємо", water: false },
   ];
   return (
-    <section id="process" className="py-20 lg:py-28 bg-white relative overflow-hidden">
+    <section id="process" className="py-20 lg:py-28 relative overflow-hidden" style={{ background: "var(--brand-cream)" }}>
       <div className="container-x">
         <div className="reveal max-w-2xl">
           <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-emerald">Процес</span>
@@ -400,20 +404,21 @@ function Process() {
         </div>
 
         <div className="relative mt-16">
-          <div aria-hidden className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-brand-accent via-brand-water to-brand-accent md:left-1/2" />
+          <div aria-hidden className="absolute left-6 top-0 bottom-0 border-l border-dashed md:left-1/2" style={{ borderColor: "var(--brand-stone)" }} />
           <div className="space-y-12">
             {steps.map((s, i) => {
               const right = i % 2 === 1;
               return (
                 <div key={s.n} className="reveal relative md:grid md:grid-cols-2 md:gap-12" style={{ transitionDelay: `${i * 150}ms` }}>
                   <div className={`pl-16 md:pl-0 ${right ? "md:col-start-2 md:pl-12" : "md:col-start-1 md:text-right md:pr-12"}`}>
-                    <h3 className="text-2xl font-extrabold text-brand-dark">{s.title}</h3>
+                    <h3 className="font-display text-2xl text-brand-dark" style={{ fontWeight: 700 }}>{s.title}</h3>
                     <p className="mt-2 text-[15px] text-muted-foreground">{s.desc}</p>
                   </div>
                   <div
-                    className={`absolute left-0 top-0 grid place-items-center w-12 h-12 rounded-full text-white text-lg font-extrabold ring-4 ring-white shadow-lg ${
+                    className={`absolute left-0 top-0 grid place-items-center w-12 h-12 rounded-full font-display text-white text-lg ring-4 shadow-md ${
                       s.water ? "bg-brand-water" : "bg-brand-accent"
                     } md:left-1/2 md:-translate-x-1/2`}
+                    style={{ fontWeight: 700, ["--tw-ring-color" as any]: "var(--brand-cream)" }}
                   >
                     {s.n}
                   </div>
@@ -448,7 +453,7 @@ function WhyUs() {
           </h2>
           <div className="mt-8 flex flex-wrap gap-2">
             {["Hunter", "Rain Bird", "Irritec"].map((b) => (
-              <span key={b} className="inline-flex items-center rounded-lg bg-brand-dark text-white px-3.5 py-2 text-sm font-bold tracking-wide">
+              <span key={b} className="inline-flex items-center text-brand-dark px-1 py-1 text-sm font-display font-semibold border-b-2 border-brand-accent" style={{ fontWeight: 600, letterSpacing: "0.04em" }}>
                 {b}
               </span>
             ))}
@@ -525,7 +530,7 @@ function Faq() {
 function Contact() {
   return (
     <section id="contact" className="grid lg:grid-cols-[45fr_55fr]">
-      <div className="relative animated-gradient text-white p-8 sm:p-12 lg:p-16 overflow-hidden">
+      <div className="relative animated-gradient noise-overlay text-white p-8 sm:p-12 lg:p-16 overflow-hidden">
         <div className="reveal max-w-md">
           <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-accent">Контакти</span>
           <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold tracking-tight">Зв'яжіться з нами</h2>
@@ -586,12 +591,12 @@ function ContactCard({
 /* ───────────── FOOTER ───────────── */
 function Footer() {
   return (
-    <footer className="bg-brand-dark text-white">
+    <footer className="bg-brand-dark text-white noise-overlay">
       <div className="container-x py-14 grid gap-10 md:grid-cols-3">
         <div>
           <a href="#top" className="flex items-center gap-3">
-            <img src={logoImg} alt="Garden Keeper" className="w-12 h-12 rounded-full object-cover ring-2 ring-brand-accent/40" />
-            <span className="text-xl font-extrabold tracking-tight">Garden Keeper</span>
+            <img src={logoImg} alt="Garden Keeper" className="w-14 h-14 rounded-full object-cover ring-2 ring-brand-accent/40" />
+            <span className="font-display text-2xl tracking-tight" style={{ fontWeight: 700 }}>Garden Keeper</span>
           </a>
           <p className="mt-4 text-sm text-white/70 leading-relaxed">Системи автополиву з 2011 року.<br />Одеса та Одеська область.</p>
           <div className="mt-5 flex items-center gap-3">
@@ -608,7 +613,7 @@ function Footer() {
         </div>
         <div className="grid grid-cols-2 gap-6">
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-brand-accent">Навігація</h4>
+            <h4 className="font-display italic text-base text-brand-accent" style={{ fontWeight: 400 }}>Навігація</h4>
             <ul className="mt-4 space-y-2.5 text-sm text-white/80">
               <li><a href="#services" className="hover:text-brand-accent">Послуги</a></li>
               <li><a href="#process" className="hover:text-brand-accent">Процес</a></li>
@@ -616,7 +621,7 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-brand-accent">Більше</h4>
+            <h4 className="font-display italic text-base text-brand-accent" style={{ fontWeight: 400 }}>Більше</h4>
             <ul className="mt-4 space-y-2.5 text-sm text-white/80">
               <li><a href="#quiz" className="hover:text-brand-accent">Калькулятор</a></li>
               <li><a href="#contact" className="hover:text-brand-accent">Контакти</a></li>
@@ -625,8 +630,8 @@ function Footer() {
           </div>
         </div>
         <div>
-          <h4 className="text-sm font-bold uppercase tracking-wider text-brand-accent">Контакти</h4>
-          <ul className="mt-4 space-y-2.5 text-sm text-white/80">
+          <h4 className="font-display italic text-base text-brand-accent" style={{ fontWeight: 400 }}>Контакти</h4>
+          <ul className="mt-4 space-y-2.5 text-sm text-white/80 tabular-nums">
             <li><a href={`tel:${PHONE_PRIMARY_TEL}`} className="hover:text-brand-accent">Віталій: +38 {PHONE_PRIMARY}</a></li>
             <li><a href={`tel:${PHONE_SECONDARY_TEL}`} className="hover:text-brand-accent">Максим: +38 {PHONE_SECONDARY}</a></li>
             <li>Пн–Сб: 9:00 — 19:00</li>
@@ -634,8 +639,8 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10">
-        <div className="container-x py-5 text-xs text-white/60 flex flex-wrap items-center justify-between gap-3">
+      <div className="border-t border-white/5">
+        <div className="container-x py-5 text-[11px] text-white/40 flex flex-wrap items-center justify-between gap-3">
           <span>© 2026 Garden Keeper. Всі права захищені.</span>
           <a href="#" className="hover:text-brand-accent">Політика конфіденційності</a>
         </div>
@@ -706,15 +711,18 @@ function Portfolio() {
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
           {items.map((it, i) => (
             <a key={i} href="https://instagram.com" target="_blank" rel="noopener noreferrer"
-               className={`reveal group relative overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer ${it.span}`}
-               style={{ transitionDelay: `${i * 60}ms` }}>
+               className={`reveal group relative overflow-hidden aspect-[4/3] cursor-pointer shadow-sm hover:shadow-lg transition-shadow duration-300 ${it.span}`}
+               style={{ transitionDelay: `${i * 60}ms`, borderRadius: "18px" }}>
+              <span className="absolute top-3 right-3 z-10 text-[11px] font-semibold text-white opacity-0 group-hover:opacity-60 transition-opacity duration-300 tabular-nums">
+                {String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
+              </span>
               <img src={it.src} alt={`${it.location} — ${it.type}`} loading="lazy"
                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[600ms] group-hover:scale-105" />
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "rgba(15,61,32,0.5)" }} />
               <div className="absolute bottom-0 left-0 right-0 p-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent)" }}>
-                <div className="text-base font-bold">{it.location}</div>
-                <div className="text-sm opacity-80">{it.type}</div>
+                <div className="font-display text-lg italic" style={{ fontWeight: 600 }}>{it.type}</div>
+                <div className="text-sm font-bold opacity-90">{it.location}</div>
               </div>
             </a>
           ))}
@@ -791,16 +799,16 @@ function BeforeAfter() {
               <div className="absolute inset-0 pointer-events-none" style={{ clipPath: `inset(0 0 0 ${pos}%)` }}>
                 <img src={portfolio6} alt="Після" className="absolute inset-0 w-full h-full object-cover" draggable={false} />
               </div>
-              <div className="absolute top-3 left-3 inline-flex items-center rounded-md px-2.5 py-1 text-xs font-bold text-white" style={{ background: "#991B1B" }}>ДО</div>
-              <div className="absolute top-3 right-3 inline-flex items-center rounded-md bg-brand-emerald px-2.5 py-1 text-xs font-bold text-white">ПІСЛЯ</div>
+              <div className="absolute top-3 left-3 inline-flex items-center rounded-md px-2.5 py-1 font-display text-xs text-white" style={{ background: "#991B1B", fontWeight: 600, letterSpacing: "0.18em" }}>ДО</div>
+              <div className="absolute top-3 right-3 inline-flex items-center rounded-md bg-brand-emerald px-2.5 py-1 font-display text-xs text-white" style={{ fontWeight: 600, letterSpacing: "0.18em" }}>ПІСЛЯ</div>
               <div className="absolute top-0 bottom-0 w-0.5 bg-white pointer-events-none" style={{ left: `${pos}%`, transform: "translateX(-50%)" }} />
               <div
-                className="absolute top-1/2 grid place-items-center w-12 h-12 rounded-full bg-white shadow-xl"
+                className="absolute top-1/2 grid place-items-center w-14 h-14 rounded-full bg-white shadow-lg hover:scale-105 transition-transform"
                 style={{ left: `${pos}%`, transform: "translate(-50%, -50%)", cursor: dragging ? "grabbing" : "grab" }}
               >
                 <div className="flex items-center gap-0.5 text-brand-dark">
-                  <ChevronDown className="w-4 h-4 rotate-90" />
-                  <ChevronDown className="w-4 h-4 -rotate-90" />
+                  <ChevronDown className="w-4 h-4 rotate-90" strokeWidth={1.5} />
+                  <ChevronDown className="w-4 h-4 -rotate-90" strokeWidth={1.5} />
                 </div>
               </div>
             </div>
@@ -890,7 +898,7 @@ function Reviews() {
     },
   ];
   return (
-    <section id="reviews" className="py-20 lg:py-32 bg-white">
+    <section id="reviews" className="py-20 lg:py-32" style={{ background: "var(--brand-cream-warm)" }}>
       <div className="container-x">
         <div className="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
@@ -899,17 +907,18 @@ function Reviews() {
               Що кажуть наші клієнти
             </h2>
           </div>
-          <span className="inline-flex items-center gap-2 rounded-full bg-brand-light px-4 py-2 text-sm font-bold text-brand-dark">
-            <Star className="w-4 h-4 fill-[#FBBF24] text-[#FBBF24]" /> 4.9 / 5.0 на Google Maps
+          <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-brand-dark shadow-sm tabular-nums">
+            <Star className="w-4 h-4 fill-brand-gold text-brand-gold" strokeWidth={1.5} /> 4.9 / 5.0 на Google Maps
           </span>
         </div>
 
         <div className="mt-12 grid md:grid-cols-3 gap-5">
           {reviews.map((r, i) => (
-            <article key={i} className="reveal flex flex-col rounded-2xl border border-border p-8" style={{ background: "var(--brand-cream)", transitionDelay: `${i * 80}ms` }}>
+            <article key={i} className="reveal relative flex flex-col border p-8 bg-white shadow-sm hover:shadow-md transition-shadow duration-300" style={{ borderColor: "var(--brand-stone)", borderRadius: "18px", transitionDelay: `${i * 80}ms` }}>
+              <span aria-hidden className="absolute top-3 left-5 font-display italic select-none pointer-events-none" style={{ color: "var(--brand-earth)", opacity: 0.3, fontSize: "60px", lineHeight: 1, fontWeight: 400 }}>"</span>
               <div className="flex gap-1">
                 {Array.from({ length: 5 }).map((_, k) => (
-                  <Star key={k} className="w-4 h-4 fill-[#FBBF24] text-[#FBBF24]" />
+                  <Star key={k} className="w-4 h-4 fill-brand-gold text-brand-gold" strokeWidth={1.5} />
                 ))}
               </div>
               <p className="mt-4 text-[15px] italic leading-[1.6] text-foreground/90 flex-1">"{r.quote}"</p>
@@ -955,14 +964,14 @@ function Team() {
         <div className="grid sm:grid-cols-2 gap-5">
           {cards.map((c) => (
             <div key={c.name} className="reveal rounded-2xl border border-border bg-white p-7 transition-shadow hover:shadow-card">
-              <div className={`grid place-items-center w-20 h-20 rounded-full text-white text-2xl font-black ${c.bg}`}>
+              <div className={`grid place-items-center w-20 h-20 rounded-full text-white font-display ${c.bg}`} style={{ fontSize: "40px", fontWeight: 700, background: `linear-gradient(135deg, var(--brand-emerald), var(--brand-water))` }}>
                 {c.letter}
               </div>
-              <h3 className="mt-5 text-xl font-extrabold text-brand-dark">{c.name}</h3>
+              <h3 className="mt-5 font-display text-2xl text-brand-dark" style={{ fontWeight: 700 }}>{c.name}</h3>
               <div className="mt-1 text-xs font-bold uppercase tracking-wider text-brand-water">{c.role}</div>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.bio}</p>
-              <a href={`tel:${c.tel}`} className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand-dark hover:text-brand-water">
-                <Phone className="w-4 h-4" /> {c.phone}
+              <a href={`tel:${c.tel}`} className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand-dark hover:text-brand-water tabular-nums">
+                <Phone className="w-4 h-4" strokeWidth={1.5} /> {c.phone}
               </a>
             </div>
           ))}
@@ -1029,5 +1038,33 @@ function MobileBottomBar() {
         </a>
       </div>
     </div>
+  );
+}
+
+/* ───────────── PHOTO STRIP ───────────── */
+function PhotoStrip() {
+  return (
+    <section aria-label="" className="relative w-full overflow-hidden" style={{ height: "40vh", minHeight: 280 }}>
+      <img
+        src={portfolio5}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.35) 100%)" }}
+      />
+      <div className="relative h-full flex items-center justify-center px-6">
+        <p
+          className="font-display italic text-white text-center max-w-[600px] text-3xl sm:text-4xl lg:text-5xl"
+          style={{ fontWeight: 400, letterSpacing: "-0.02em", textShadow: "0 2px 24px rgba(0,0,0,0.35)" }}
+        >
+          Кожен об'єкт — як для себе
+        </p>
+      </div>
+    </section>
   );
 }

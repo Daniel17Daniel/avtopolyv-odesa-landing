@@ -6,13 +6,15 @@
 
 @theme inline {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", "Inter", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-2xl: 24px;
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 22px;
+  --radius-2xl: 22px;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -42,13 +44,24 @@
   --color-brand-light: var(--brand-light);
   --color-brand-cream: var(--brand-cream);
   --color-brand-cream-warm: var(--brand-cream-warm);
+  --color-brand-earth: var(--brand-earth);
+  --color-brand-earth-light: var(--brand-earth-light);
+  --color-brand-gold: var(--brand-gold);
+  --color-brand-stone: var(--brand-stone);
+  --color-brand-charcoal: var(--brand-charcoal);
   --color-surface: var(--surface);
 
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm: 0 2px 8px -2px rgba(0,0,0,0.06);
+  --shadow-md: 0 8px 24px -6px rgba(0,0,0,0.10);
+  --shadow-lg: 0 16px 48px -16px rgba(0,0,0,0.12);
+  --shadow-xl: 0 24px 80px -24px rgba(0,0,0,0.16);
+  --shadow-2xl: 0 32px 120px -32px rgba(0,0,0,0.20);
   --shadow-soft: 0 4px 24px -8px rgba(0,0,0,0.06);
-  --shadow-card: 0 16px 48px -16px rgba(0,0,0,0.12);
-  --shadow-lift: 0 24px 80px -24px rgba(0,0,0,0.15);
-  --shadow-water: 0 16px 48px -16px rgba(0,0,0,0.12);
-  --shadow-lime: 0 16px 48px -16px rgba(0,0,0,0.12);
+  --shadow-card: 0 8px 24px -6px rgba(0,0,0,0.10);
+  --shadow-lift: 0 16px 48px -16px rgba(0,0,0,0.12);
+  --shadow-water: 0 8px 24px -6px rgba(0,0,0,0.10);
+  --shadow-lime: 0 8px 24px -6px rgba(0,0,0,0.10);
 }
 
 :root {
@@ -64,7 +77,15 @@
   --brand-light: #F1F8E9;
   --brand-cream: #FAF7F0;
   --brand-cream-warm: #F5F1E8;
+  --brand-earth: #6B4423;
+  --brand-earth-light: #A87C50;
+  --brand-gold: #B8860B;
+  --brand-stone: #E8E2D5;
+  --brand-charcoal: #1A1F1C;
   --surface: #FFFFFF;
+
+  --shadow-input: inset 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-input-focus: inset 0 1px 2px rgba(0,0,0,0.04), 0 0 0 3px rgba(25,118,210,0.15);
 
   --background: #FFFFFF;
   --foreground: #1A1A1A;
@@ -109,6 +130,7 @@
 
 @layer base {
   html { scroll-behavior: smooth; }
+  section[id] { scroll-margin-top: 80px; }
   * { border-color: var(--color-border); }
   body {
     background-color: var(--color-background);
@@ -117,9 +139,16 @@
     -webkit-font-smoothing: antialiased;
     font-feature-settings: "cv11", "ss01";
   }
-  h1, h2, h3, h4 {
-    font-family: var(--font-display);
-    letter-spacing: -0.02em;
+  h1 { font-family: var(--font-display); letter-spacing: -0.04em; font-variation-settings: "opsz" 144; }
+  h2 { font-family: var(--font-display); letter-spacing: -0.025em; font-variation-settings: "opsz" 96; }
+  h3 { font-family: var(--font-sans); letter-spacing: -0.015em; }
+  h4 { font-family: var(--font-sans); letter-spacing: -0.01em; }
+  .font-display { font-family: var(--font-display); }
+  input, select, textarea {
+    box-shadow: var(--shadow-input);
+  }
+  input:focus, select:focus, textarea:focus {
+    box-shadow: var(--shadow-input-focus);
   }
 }
 
@@ -157,6 +186,15 @@
     animation: gradient-shift 18s ease infinite;
   }
   .text-stroke-white { -webkit-text-stroke: 1px rgba(255,255,255,0.4); color: transparent; }
+  .tabular-nums { font-variant-numeric: tabular-nums; }
+  .noise-overlay { position: relative; }
+  .noise-overlay::before {
+    content: "";
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.04; mix-blend-mode: overlay; z-index: 1;
+  }
+  .noise-overlay > * { position: relative; z-index: 2; }
 }
 
 @keyframes gradient-shift {

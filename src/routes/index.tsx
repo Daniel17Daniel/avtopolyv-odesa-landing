@@ -301,12 +301,12 @@ function Stats() {
     { v: 2, suffix: "", label: "години до передзвону" },
   ];
   return (
-    <section className="relative py-16 lg:py-20 text-white overflow-hidden animated-gradient">
+    <section className="relative py-16 lg:py-20 text-white overflow-hidden" style={{ background: "linear-gradient(135deg, #0F3D2E 0%, #1B5E20 50%, #2E7D32 100%)" }}>
       <div className="container-x relative">
         <div className="grid grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-white/15">
           {items.map((it, i) => (
             <div key={i} className="px-4 py-6 text-center reveal" style={{ transitionDelay: `${i * 80}ms` }}>
-              <div className="text-5xl sm:text-6xl font-black tracking-tight leading-none">
+              <div className="text-5xl sm:text-6xl font-black tracking-tight leading-none tabular-nums">
                 <Counter to={it.v} />{it.suffix}
               </div>
               <div className="mt-3 text-[13px] sm:text-sm uppercase tracking-wider text-white/60 font-medium">{it.label}</div>
@@ -354,10 +354,13 @@ function QuizSection() {
       </svg>
       <div className="container-x relative">
         <div className="reveal max-w-2xl mx-auto text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-emerald">Калькулятор</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-dark tracking-tight text-balance">
+          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-emerald">Готові почати?</span>
+          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-dark tracking-tight text-balance" style={{ letterSpacing: "-0.02em" }}>
             Розрахуйте проєкт <span className="text-brand-water">за 1 хвилину</span>
           </h2>
+          <p className="mt-4 text-base text-muted-foreground max-w-xl mx-auto">
+            Без зобов'язань. Після опитування підготуємо персональну пропозицію.
+          </p>
         </div>
         <div className="reveal mt-8">
           <LeadQuiz />

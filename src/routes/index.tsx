@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   Phone, MessageCircle, Send, MapPin, Clock, Instagram, ArrowRight, ArrowDown,
   Menu, X, ChevronDown, ChevronUp, Facebook, Music2, Check,
-  Star, Droplets, TrendingUp,
+  Star, Droplets, TrendingUp, ChevronRight, CheckCircle2, AlertCircle, Info,
 } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { LeadQuiz, type PrefilledService } from "@/components/LeadQuiz";

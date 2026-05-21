@@ -40,13 +40,15 @@
   --color-brand-water: var(--brand-water);
   --color-brand-water-hover: var(--brand-water-hover);
   --color-brand-light: var(--brand-light);
+  --color-brand-cream: var(--brand-cream);
+  --color-brand-cream-warm: var(--brand-cream-warm);
   --color-surface: var(--surface);
 
-  --shadow-soft: 0 4px 20px -4px oklch(0.15 0.05 160 / 0.08);
-  --shadow-card: 0 10px 30px -10px oklch(0.15 0.05 160 / 0.12);
-  --shadow-glow: 0 20px 60px -20px rgba(25, 118, 210, 0.45);
-  --shadow-water: 0 20px 60px -20px rgba(25, 118, 210, 0.35);
-  --shadow-lime: 0 20px 60px -20px rgba(139, 195, 74, 0.45);
+  --shadow-soft: 0 4px 24px -8px rgba(0,0,0,0.06);
+  --shadow-card: 0 16px 48px -16px rgba(0,0,0,0.12);
+  --shadow-lift: 0 24px 80px -24px rgba(0,0,0,0.15);
+  --shadow-water: 0 16px 48px -16px rgba(0,0,0,0.12);
+  --shadow-lime: 0 16px 48px -16px rgba(0,0,0,0.12);
 }
 
 :root {
@@ -60,6 +62,8 @@
   --brand-water: #1976D2;
   --brand-water-hover: #1565C0;
   --brand-light: #F1F8E9;
+  --brand-cream: #FAF7F0;
+  --brand-cream-warm: #F5F1E8;
   --surface: #FFFFFF;
 
   --background: #FFFFFF;
@@ -179,21 +183,6 @@
   20%     { transform: scale(1) rotate(0); }
 }
 .phone-pulse { animation: phone-pulse 4s ease-in-out infinite; transform-origin: center; }
-
-/* Custom cursor */
-@media (hover:hover) and (pointer:fine) {
-  .has-custom-cursor, .has-custom-cursor * { cursor: none !important; }
-}
-.cursor-dot {
-  position: fixed; top: 0; left: 0; width: 8px; height: 8px;
-  border-radius: 9999px; background: #8BC34A; pointer-events: none;
-  z-index: 9999; transform: translate(-50%,-50%);
-  transition: width .2s ease, height .2s ease, background .2s ease, border .2s ease;
-  mix-blend-mode: difference;
-}
-.cursor-dot.is-hover {
-  width: 42px; height: 42px; background: transparent; border: 2px solid #8BC34A;
-}
 
 /* Scroll progress */
 .scroll-progress {

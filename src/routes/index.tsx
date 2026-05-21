@@ -354,9 +354,11 @@ function Counter({ to }: { to: number }) {
 }
 
 /* ───────────── QUIZ SECTION ───────────── */
-function QuizSection() {
+const QuizSection = React.forwardRef<HTMLElement, { prefilledService?: PrefilledService }>(function QuizSection(
+  { prefilledService }, ref,
+) {
   return (
-    <section id="quiz" className="relative bg-brand-light py-16 lg:py-20 overflow-hidden">
+    <section ref={ref} id="quiz" className="relative bg-brand-light py-16 lg:py-20 overflow-hidden">
       <div className="absolute -top-16 left-0 right-0 h-20 bg-brand-light" aria-hidden />
       <svg className="absolute top-0 left-0 right-0 w-full text-brand-light -mt-px" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden>
         <path fill="currentColor" d="M0,32 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" />
@@ -371,13 +373,13 @@ function QuizSection() {
             Без зобов'язань. Після опитування підготуємо персональну пропозицію.
           </p>
         </div>
-        <div className="reveal mt-8">
-          <LeadQuiz />
+        <div className="reveal mt-8" data-quiz-card>
+          <LeadQuiz prefilledService={prefilledService} />
         </div>
       </div>
     </section>
   );
-}
+});
 
 /* ───────────── PROCESS (timeline) ───────────── */
 function Process() {

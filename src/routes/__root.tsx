@@ -73,6 +73,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#1B5E20" },
       { title: "Garden Keeper — Автополив у Одесі | Системи поливу з 2011" },
       { name: "description", content: "Монтаж автополиву, крапельного зрошення та рулонного газону в Одесі та області. 14 років досвіду. Hunter, Rain Bird. Безкоштовний виїзд та розрахунок." },
       { name: "keywords", content: "автополив Одеса, система поливу, крапельний полив, рулонний газон Одеса, Garden Keeper" },
@@ -90,6 +91,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" },
+      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,600;1,9..144,700&display=swap" },
     ],
   }),
   shellComponent: RootShell,

@@ -271,10 +271,11 @@ function Services({ onPick }: { onPick: (svc: PrefilledService) => void }) {
               role="button" tabIndex={0}
               onClick={() => onPick(s.svc)}
               onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onPick(s.svc); } }}
-              className="reveal group relative overflow-hidden rounded-3xl p-8 min-h-[280px] flex flex-col justify-between text-white transition-all duration-500 hover:-translate-y-2 cursor-pointer hover:shadow-[0_30px_80px_-30px_rgba(25,118,210,0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-water"
+              className="reveal noise-overlay group relative overflow-hidden p-8 min-h-[280px] flex flex-col justify-between text-white transition-all duration-300 hover:-translate-y-2 cursor-pointer shadow-md hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-water"
               style={{
                 background: "linear-gradient(140deg, #0f3d20 0%, #1B5E20 60%, #2E7D32 100%)",
                 transitionDelay: `${i * 80}ms`,
+                borderRadius: "22px",
               }}
             >
               <div
@@ -282,14 +283,14 @@ function Services({ onPick }: { onPick: (svc: PrefilledService) => void }) {
                 className="absolute inset-0 opacity-[0.07] pointer-events-none"
                 style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "18px 18px" }}
               />
-              <span className="absolute top-4 right-6 text-[88px] font-black leading-none text-white/10 group-hover:text-brand-accent/70 transition-colors duration-500">
+              <span className="absolute top-4 right-6 font-display text-[96px] leading-none text-brand-earth-light/40 group-hover:text-brand-earth-light/80 transition-colors duration-500 tabular-nums" style={{ fontWeight: 700, letterSpacing: "-0.04em" }}>
                 {s.n}
               </span>
               <div className="relative">
                 <h3 className="text-2xl font-extrabold tracking-tight">{s.title}</h3>
                 <ul className="mt-5 space-y-2 text-[14px] text-white/80">
                   {s.bullets.map((b) => (
-                    <li key={b} className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 text-brand-accent shrink-0" /> {b}</li>
+                    <li key={b} className="flex items-start gap-2"><Check className="w-4 h-4 mt-0.5 text-brand-accent shrink-0" strokeWidth={1.5} /> {b}</li>
                   ))}
                 </ul>
               </div>

@@ -3,16 +3,25 @@ import { useEffect, useRef, useState } from "react";
 import {
   Phone, MessageCircle, Send, MapPin, Clock, Instagram, ArrowRight, ArrowDown,
   Menu, X, ChevronDown, ChevronUp, Facebook, Music2, Check,
+  Star, Droplets, TrendingUp,
 } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { LeadQuiz } from "@/components/LeadQuiz";
 import logoImg from "@/assets/garden-keeper-logo.jpg";
 import heroImg from "@/assets/hero-sprinkler.jpg";
+import portfolio1 from "@/assets/portfolio-1.jpg";
+import portfolio2 from "@/assets/portfolio-2.jpg";
+import portfolio3 from "@/assets/portfolio-3.jpg";
+import portfolio4 from "@/assets/portfolio-4.jpg";
+import portfolio5 from "@/assets/portfolio-5.jpg";
+import portfolio6 from "@/assets/portfolio-6.jpg";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
   head: () => ({
     meta: [
+      { title: "Garden Keeper — Автополив в Одесі з 2011 року" },
+      { name: "description", content: "Системи автополиву, крапельного зрошення та рулонний газон в Одесі та області. Hunter, Rain Bird, Irritec. Гарантія до 3 років." },
       { property: "og:url", content: "/" },
       { property: "og:image", content: heroImg },
     ],
@@ -37,23 +46,27 @@ const PHONE_PRIMARY = "093 030 58 20";
 const PHONE_PRIMARY_TEL = "+380930305820";
 const PHONE_SECONDARY = "099 320 98 41";
 const PHONE_SECONDARY_TEL = "+380993209841";
-const HERO_VIDEO = "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-field-being-irrigated-by-an-automatic-system-32809-large.mp4";
 
 function LandingPage() {
   useReveal();
   useScrollProgress();
-  useCustomCursor();
   return (
     <div className="min-h-screen bg-background text-foreground pb-[68px] md:pb-0">
       <div className="scroll-progress" id="scroll-progress" />
       <Header />
       <main>
         <Hero />
-        <Services />
+        <TrustBar />
         <Stats />
-        <QuizSection />
+        <Portfolio />
+        <Services />
+        <BeforeAfter />
         <Process />
+        <SavingsTeaser />
+        <Reviews />
+        <Team />
         <WhyUs />
+        <QuizSection />
         <Faq />
         <Contact />
       </main>
@@ -78,30 +91,6 @@ function useScrollProgress() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-}
-
-function useCustomCursor() {
-  useEffect(() => {
-    if (window.matchMedia("(hover: none)").matches) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const dot = document.createElement("div");
-    dot.className = "cursor-dot";
-    document.body.appendChild(dot);
-    document.documentElement.classList.add("has-custom-cursor");
-    const move = (e: MouseEvent) => {
-      dot.style.left = e.clientX + "px";
-      dot.style.top = e.clientY + "px";
-      const t = e.target as HTMLElement;
-      if (t.closest("a,button,input,select,textarea,[role=button]")) dot.classList.add("is-hover");
-      else dot.classList.remove("is-hover");
-    };
-    window.addEventListener("mousemove", move);
-    return () => {
-      window.removeEventListener("mousemove", move);
-      dot.remove();
-      document.documentElement.classList.remove("has-custom-cursor");
-    };
   }, []);
 }
 

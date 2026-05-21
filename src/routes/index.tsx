@@ -242,23 +242,14 @@ function Hero() {
 }
 
 /* ───────────── SERVICES (3 large panels) ───────────── */
-function Services() {
+function Services({ onPick }: { onPick: (svc: PrefilledService) => void }) {
   const items = [
-    {
-      n: "01",
-      title: "Автоматичний полив",
-      bullets: ["Проєктування під ваш участок", "Монтаж за 3-7 днів", "Обладнання Hunter / Rain Bird"],
-    },
-    {
-      n: "02",
-      title: "Крапельне зрошення",
-      bullets: ["Точкова подача до кожної рослини", "Економія до 70% води", "Для клумб, кущів, теплиць"],
-    },
-    {
-      n: "03",
-      title: "Рулонний газон",
-      bullets: ["Готовий газон за один день", "Якісний дерн з гарантією", "Автополив у комплексі"],
-    },
+    { n: "01", title: "Автоматичний полив", svc: "Новий автополив" as PrefilledService,
+      bullets: ["Проєктування під ваш участок", "Монтаж за 3-7 днів", "Обладнання Hunter / Rain Bird"] },
+    { n: "02", title: "Крапельне зрошення", svc: "Крапельний полив" as PrefilledService,
+      bullets: ["Точкова подача до кожної рослини", "Економія до 70% води", "Для клумб, кущів, теплиць"] },
+    { n: "03", title: "Рулонний газон", svc: "Рулонний газон" as PrefilledService,
+      bullets: ["Готовий газон за один день", "Якісний дерн з гарантією", "Автополив у комплексі"] },
   ];
   return (
     <section id="services" className="relative py-20 lg:py-28 bg-background">
@@ -274,7 +265,10 @@ function Services() {
           {items.map((s, i) => (
             <article
               key={s.n}
-              className="reveal group relative overflow-hidden rounded-3xl p-8 min-h-[280px] flex flex-col justify-between text-white transition-all duration-500 hover:-translate-y-2"
+              role="button" tabIndex={0}
+              onClick={() => onPick(s.svc)}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onPick(s.svc); } }}
+              className="reveal group relative overflow-hidden rounded-3xl p-8 min-h-[280px] flex flex-col justify-between text-white transition-all duration-500 hover:-translate-y-2 cursor-pointer hover:shadow-[0_30px_80px_-30px_rgba(25,118,210,0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-water"
               style={{
                 background: "linear-gradient(140deg, #0f3d20 0%, #1B5E20 60%, #2E7D32 100%)",
                 transitionDelay: `${i * 80}ms`,
@@ -296,9 +290,9 @@ function Services() {
                   ))}
                 </ul>
               </div>
-              <a href="#quiz" className="relative inline-flex items-center gap-1.5 text-sm font-bold text-brand-accent group-hover:gap-3 transition-all">
-                Дізнатись більше <ArrowRight className="w-4 h-4" />
-              </a>
+              <span className="relative inline-flex items-center gap-1.5 text-[12px] font-bold text-brand-accent/80 group-hover:gap-3 transition-all">
+                Натисніть для розрахунку <ArrowRight className="w-3.5 h-3.5" />
+              </span>
             </article>
           ))}
         </div>

@@ -799,8 +799,8 @@ function BeforeAfter() {
               <div className="absolute inset-0 pointer-events-none" style={{ clipPath: `inset(0 0 0 ${pos}%)` }}>
                 <img src={portfolio6} alt="Після" className="absolute inset-0 w-full h-full object-cover" draggable={false} />
               </div>
-              <div className="absolute top-3 left-3 inline-flex items-center rounded-md px-2.5 py-1 text-xs font-bold text-white" style={{ background: "#991B1B" }}>ДО</div>
-              <div className="absolute top-3 right-3 inline-flex items-center rounded-md bg-brand-emerald px-2.5 py-1 text-xs font-bold text-white">ПІСЛЯ</div>
+              <div className="absolute top-3 left-3 inline-flex items-center rounded-md px-2.5 py-1 font-display text-xs text-white" style={{ background: "#991B1B", fontWeight: 600, letterSpacing: "0.18em" }}>ДО</div>
+              <div className="absolute top-3 right-3 inline-flex items-center rounded-md bg-brand-emerald px-2.5 py-1 font-display text-xs text-white" style={{ fontWeight: 600, letterSpacing: "0.18em" }}>ПІСЛЯ</div>
               <div className="absolute top-0 bottom-0 w-0.5 bg-white pointer-events-none" style={{ left: `${pos}%`, transform: "translateX(-50%)" }} />
               <div
                 className="absolute top-1/2 grid place-items-center w-14 h-14 rounded-full bg-white shadow-lg hover:scale-105 transition-transform"

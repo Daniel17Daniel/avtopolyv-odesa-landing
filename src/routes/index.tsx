@@ -711,7 +711,7 @@ function Portfolio() {
           {items.map((it, i) => (
             <a key={i} href="https://instagram.com" target="_blank" rel="noopener noreferrer"
                className={`reveal group relative overflow-hidden aspect-[4/3] cursor-pointer shadow-sm hover:shadow-lg transition-shadow duration-300 ${it.span}`}
-               style={{ transitionDelay: `${i * 60}ms` }}>
+               style={{ transitionDelay: `${i * 60}ms`, borderRadius: "18px" }}>
               <span className="absolute top-3 right-3 z-10 text-[11px] font-semibold text-white opacity-0 group-hover:opacity-60 transition-opacity duration-300 tabular-nums">
                 {String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
               </span>

@@ -803,12 +803,12 @@ function BeforeAfter() {
               <div className="absolute top-3 right-3 inline-flex items-center rounded-md bg-brand-emerald px-2.5 py-1 text-xs font-bold text-white">ПІСЛЯ</div>
               <div className="absolute top-0 bottom-0 w-0.5 bg-white pointer-events-none" style={{ left: `${pos}%`, transform: "translateX(-50%)" }} />
               <div
-                className="absolute top-1/2 grid place-items-center w-12 h-12 rounded-full bg-white shadow-xl"
+                className="absolute top-1/2 grid place-items-center w-14 h-14 rounded-full bg-white shadow-lg hover:scale-105 transition-transform"
                 style={{ left: `${pos}%`, transform: "translate(-50%, -50%)", cursor: dragging ? "grabbing" : "grab" }}
               >
                 <div className="flex items-center gap-0.5 text-brand-dark">
-                  <ChevronDown className="w-4 h-4 rotate-90" />
-                  <ChevronDown className="w-4 h-4 -rotate-90" />
+                  <ChevronDown className="w-4 h-4 rotate-90" strokeWidth={1.5} />
+                  <ChevronDown className="w-4 h-4 -rotate-90" strokeWidth={1.5} />
                 </div>
               </div>
             </div>

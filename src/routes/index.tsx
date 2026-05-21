@@ -3,16 +3,25 @@ import { useEffect, useRef, useState } from "react";
 import {
   Phone, MessageCircle, Send, MapPin, Clock, Instagram, ArrowRight, ArrowDown,
   Menu, X, ChevronDown, ChevronUp, Facebook, Music2, Check,
+  Star, Droplets, TrendingUp,
 } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { LeadQuiz } from "@/components/LeadQuiz";
 import logoImg from "@/assets/garden-keeper-logo.jpg";
 import heroImg from "@/assets/hero-sprinkler.jpg";
+import portfolio1 from "@/assets/portfolio-1.jpg";
+import portfolio2 from "@/assets/portfolio-2.jpg";
+import portfolio3 from "@/assets/portfolio-3.jpg";
+import portfolio4 from "@/assets/portfolio-4.jpg";
+import portfolio5 from "@/assets/portfolio-5.jpg";
+import portfolio6 from "@/assets/portfolio-6.jpg";
 
 export const Route = createFileRoute("/")({
   component: LandingPage,
   head: () => ({
     meta: [
+      { title: "Garden Keeper — Автополив в Одесі з 2011 року" },
+      { name: "description", content: "Системи автополиву, крапельного зрошення та рулонний газон в Одесі та області. Hunter, Rain Bird, Irritec. Гарантія до 3 років." },
       { property: "og:url", content: "/" },
       { property: "og:image", content: heroImg },
     ],
@@ -37,23 +46,27 @@ const PHONE_PRIMARY = "093 030 58 20";
 const PHONE_PRIMARY_TEL = "+380930305820";
 const PHONE_SECONDARY = "099 320 98 41";
 const PHONE_SECONDARY_TEL = "+380993209841";
-const HERO_VIDEO = "https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-field-being-irrigated-by-an-automatic-system-32809-large.mp4";
 
 function LandingPage() {
   useReveal();
   useScrollProgress();
-  useCustomCursor();
   return (
     <div className="min-h-screen bg-background text-foreground pb-[68px] md:pb-0">
       <div className="scroll-progress" id="scroll-progress" />
       <Header />
       <main>
         <Hero />
-        <Services />
+        <TrustBar />
         <Stats />
-        <QuizSection />
+        <Portfolio />
+        <Services />
+        <BeforeAfter />
         <Process />
+        <SavingsTeaser />
+        <Reviews />
+        <Team />
         <WhyUs />
+        <QuizSection />
         <Faq />
         <Contact />
       </main>
@@ -78,30 +91,6 @@ function useScrollProgress() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-}
-
-function useCustomCursor() {
-  useEffect(() => {
-    if (window.matchMedia("(hover: none)").matches) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const dot = document.createElement("div");
-    dot.className = "cursor-dot";
-    document.body.appendChild(dot);
-    document.documentElement.classList.add("has-custom-cursor");
-    const move = (e: MouseEvent) => {
-      dot.style.left = e.clientX + "px";
-      dot.style.top = e.clientY + "px";
-      const t = e.target as HTMLElement;
-      if (t.closest("a,button,input,select,textarea,[role=button]")) dot.classList.add("is-hover");
-      else dot.classList.remove("is-hover");
-    };
-    window.addEventListener("mousemove", move);
-    return () => {
-      window.removeEventListener("mousemove", move);
-      dot.remove();
-      document.documentElement.classList.remove("has-custom-cursor");
-    };
   }, []);
 }
 
@@ -185,16 +174,9 @@ function Hero() {
   const words = ["Ваш сад", "завжди", "зеленим"];
   return (
     <section id="top" className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
-      {/* Video bg, desktop only */}
-      <video
-        autoPlay muted loop playsInline poster={heroImg}
-        className="hidden md:block absolute inset-0 w-full h-full object-cover -z-10"
-      >
-        <source src={HERO_VIDEO} type="video/mp4" />
-      </video>
-      <img src={heroImg} alt="" aria-hidden className="md:hidden absolute inset-0 w-full h-full object-cover -z-10" />
+      <img src={heroImg} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover -z-10" />
       {/* Overlay */}
-      <div className="absolute inset-0 -z-10 animated-gradient opacity-95 md:opacity-90 mix-blend-multiply" />
+      <div className="absolute inset-0 -z-10 opacity-90" style={{ background: "linear-gradient(135deg, #0f3d20 0%, #1B5E20 50%, #1976D2 100%)" }} />
       <div
         className="absolute inset-0 -z-10"
         style={{ background: "linear-gradient(135deg, rgba(27,94,32,0.85) 0%, rgba(25,118,210,0.45) 100%)" }}
@@ -319,12 +301,12 @@ function Stats() {
     { v: 2, suffix: "", label: "години до передзвону" },
   ];
   return (
-    <section className="relative py-16 lg:py-20 text-white overflow-hidden animated-gradient">
+    <section className="relative py-16 lg:py-20 text-white overflow-hidden" style={{ background: "linear-gradient(135deg, #0F3D2E 0%, #1B5E20 50%, #2E7D32 100%)" }}>
       <div className="container-x relative">
         <div className="grid grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-white/15">
           {items.map((it, i) => (
             <div key={i} className="px-4 py-6 text-center reveal" style={{ transitionDelay: `${i * 80}ms` }}>
-              <div className="text-5xl sm:text-6xl font-black tracking-tight leading-none">
+              <div className="text-5xl sm:text-6xl font-black tracking-tight leading-none tabular-nums">
                 <Counter to={it.v} />{it.suffix}
               </div>
               <div className="mt-3 text-[13px] sm:text-sm uppercase tracking-wider text-white/60 font-medium">{it.label}</div>
@@ -372,10 +354,13 @@ function QuizSection() {
       </svg>
       <div className="container-x relative">
         <div className="reveal max-w-2xl mx-auto text-center">
-          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-emerald">Калькулятор</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-dark tracking-tight text-balance">
+          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-emerald">Готові почати?</span>
+          <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-dark tracking-tight text-balance" style={{ letterSpacing: "-0.02em" }}>
             Розрахуйте проєкт <span className="text-brand-water">за 1 хвилину</span>
           </h2>
+          <p className="mt-4 text-base text-muted-foreground max-w-xl mx-auto">
+            Без зобов'язань. Після опитування підготуємо персональну пропозицію.
+          </p>
         </div>
         <div className="reveal mt-8">
           <LeadQuiz />
@@ -645,6 +630,334 @@ function Footer() {
         </div>
       </div>
     </footer>
+  );
+}
+
+/* ───────────── TRUST BAR ───────────── */
+function TrustBar() {
+  const brands = ["HUNTER", "RAIN BIRD", "IRRITEC"];
+  return (
+    <section className="bg-white py-12 lg:py-16">
+      <div className="container-x text-center">
+        <p className="text-xs font-bold uppercase tracking-[0.22em] text-muted-foreground">
+          Працюємо з перевіреними брендами
+        </p>
+        <div className="mt-6 flex items-center justify-center flex-wrap gap-x-8 sm:gap-x-12 gap-y-4">
+          {brands.map((b, i) => (
+            <div key={b} className="flex items-center gap-x-8 sm:gap-x-12">
+              <span
+                className="text-[18px] sm:text-[24px] font-black opacity-50 hover:opacity-100 transition-opacity duration-200"
+                style={{ color: "#1A1A1A", letterSpacing: "-0.02em" }}
+              >
+                {b}
+              </span>
+              {i < brands.length - 1 && <span aria-hidden className="w-px h-10 bg-[#E5E7EB]" />}
+            </div>
+          ))}
+        </div>
+        <p className="mt-6 text-sm text-muted-foreground">
+          Офіційне обладнання з гарантією виробника до 5 років
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────── PORTFOLIO ───────────── */
+function Portfolio() {
+  const items = [
+    { src: portfolio1, location: "Совіньон", type: "Автополив, 8 соток", span: "md:col-span-2" },
+    { src: portfolio2, location: "Фонтанка", type: "Hunter система", span: "" },
+    { src: portfolio3, location: "Лиманка", type: "Крапельний полив", span: "" },
+    { src: portfolio4, location: "Чорноморка", type: "Туї + полив", span: "" },
+    { src: portfolio5, location: "Одеса", type: "Рулонний газон", span: "md:col-span-2" },
+    { src: portfolio6, location: "Совіньон", type: "Комплекс", span: "" },
+  ];
+  return (
+    <section id="portfolio" className="py-20 lg:py-32" style={{ background: "var(--brand-cream)" }}>
+      <div className="container-x">
+        <div className="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div className="max-w-xl">
+            <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-emerald">Наші роботи</span>
+            <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold text-brand-dark text-balance" style={{ letterSpacing: "-0.02em" }}>
+              Об'єкти які доглядаємо
+            </h2>
+            <p className="mt-4 text-base text-muted-foreground max-w-[600px]">
+              Кожен проєкт — індивідуальне рішення під рельєф, рослини та побажання власника
+            </p>
+          </div>
+          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+             className="text-sm font-bold text-brand-water hover:underline whitespace-nowrap">
+            Більше робіт в Instagram →
+          </a>
+        </div>
+
+        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+          {items.map((it, i) => (
+            <a key={i} href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+               className={`reveal group relative overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer ${it.span}`}
+               style={{ transitionDelay: `${i * 60}ms` }}>
+              <img src={it.src} alt={`${it.location} — ${it.type}`} loading="lazy"
+                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-[600ms] group-hover:scale-105" />
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "rgba(15,61,32,0.5)" }} />
+              <div className="absolute bottom-0 left-0 right-0 p-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                   style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent)" }}>
+                <div className="text-base font-bold">{it.location}</div>
+                <div className="text-sm opacity-80">{it.type}</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────── BEFORE / AFTER ───────────── */
+function BeforeAfter() {
+  const [pos, setPos] = useState(50);
+  const [dragging, setDragging] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!dragging) return;
+    const move = (clientX: number) => {
+      const el = ref.current; if (!el) return;
+      const r = el.getBoundingClientRect();
+      const p = ((clientX - r.left) / r.width) * 100;
+      setPos(Math.max(0, Math.min(100, p)));
+    };
+    const onMouse = (e: MouseEvent) => move(e.clientX);
+    const onTouch = (e: TouchEvent) => { if (e.touches[0]) move(e.touches[0].clientX); };
+    const stop = () => setDragging(false);
+    window.addEventListener("mousemove", onMouse);
+    window.addEventListener("mouseup", stop);
+    window.addEventListener("touchmove", onTouch);
+    window.addEventListener("touchend", stop);
+    return () => {
+      window.removeEventListener("mousemove", onMouse);
+      window.removeEventListener("mouseup", stop);
+      window.removeEventListener("touchmove", onTouch);
+      window.removeEventListener("touchend", stop);
+    };
+  }, [dragging]);
+
+  const stats = [
+    { k: "Площа", v: "8 соток" },
+    { k: "Термін", v: "3 тижні" },
+    { k: "Обладнання", v: "Hunter" },
+    { k: "Гарантія", v: "3 роки" },
+  ];
+  const blocks = [
+    { h: "Задача", t: "Двір з висадженими туями, без газону та поливу. Власник хотів ідеальну зелену зону для відпочинку." },
+    { h: "Рішення", t: "Спроєктували систему з 16 головок Hunter PGP, проклали 180 м труб, встановили автоматичний контролер. Уклали 240 м² рулонного газону." },
+    { h: "Результат", t: "Готовий двір через 3 тижні. Власник економить 4 години щотижня на догляді та 30% води." },
+  ];
+
+  return (
+    <section id="case-study" className="py-20 lg:py-32 bg-white">
+      <div className="container-x">
+        <div className="reveal max-w-2xl">
+          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-emerald">Один з кейсів</span>
+          <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold text-brand-dark text-balance" style={{ letterSpacing: "-0.02em" }}>
+            Трансформація двору в Совіньоні
+          </h2>
+          <p className="mt-4 text-base text-muted-foreground">
+            Як ділянка 8 соток перетворилась на ідеальний газон за 3 тижні
+          </p>
+        </div>
+
+        <div className="mt-12 grid lg:grid-cols-[3fr_2fr] gap-10 items-start">
+          <div className="reveal">
+            <div
+              ref={ref}
+              className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden select-none"
+              style={{ cursor: dragging ? "grabbing" : "grab" }}
+              onMouseDown={(e) => { e.preventDefault(); setDragging(true); }}
+              onTouchStart={() => setDragging(true)}
+            >
+              <img src={portfolio5} alt="До" className="absolute inset-0 w-full h-full object-cover pointer-events-none" draggable={false} />
+              <div className="absolute inset-0 pointer-events-none" style={{ clipPath: `inset(0 0 0 ${pos}%)` }}>
+                <img src={portfolio6} alt="Після" className="absolute inset-0 w-full h-full object-cover" draggable={false} />
+              </div>
+              <div className="absolute top-3 left-3 inline-flex items-center rounded-md px-2.5 py-1 text-xs font-bold text-white" style={{ background: "#991B1B" }}>ДО</div>
+              <div className="absolute top-3 right-3 inline-flex items-center rounded-md bg-brand-emerald px-2.5 py-1 text-xs font-bold text-white">ПІСЛЯ</div>
+              <div className="absolute top-0 bottom-0 w-0.5 bg-white pointer-events-none" style={{ left: `${pos}%`, transform: "translateX(-50%)" }} />
+              <div
+                className="absolute top-1/2 grid place-items-center w-12 h-12 rounded-full bg-white shadow-xl"
+                style={{ left: `${pos}%`, transform: "translate(-50%, -50%)", cursor: dragging ? "grabbing" : "grab" }}
+              >
+                <div className="flex items-center gap-0.5 text-brand-dark">
+                  <ChevronDown className="w-4 h-4 rotate-90" />
+                  <ChevronDown className="w-4 h-4 -rotate-90" />
+                </div>
+              </div>
+            </div>
+            <p className="mt-3 text-center text-xs text-muted-foreground">← Перетягніть, щоб порівняти →</p>
+          </div>
+
+          <div className="reveal">
+            <div className="grid grid-cols-2 gap-3">
+              {stats.map((s) => (
+                <div key={s.k} className="rounded-2xl border border-border bg-white p-4">
+                  <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">{s.k}</div>
+                  <div className="mt-1 text-xl font-extrabold text-brand-dark tabular-nums">{s.v}</div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-6 space-y-5">
+              {blocks.map((b) => (
+                <div key={b.h}>
+                  <h4 className="text-sm font-bold uppercase tracking-wider text-brand-water">{b.h}</h4>
+                  <p className="mt-1.5 text-[15px] leading-relaxed text-muted-foreground">{b.t}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────── SAVINGS TEASER ───────────── */
+function SavingsTeaser() {
+  const items = [
+    { icon: Droplets, value: "−35%", label: "витрат на воду" },
+    { icon: Clock, value: "0 годин", label: "на ручний полив" },
+    { icon: TrendingUp, value: "3–5 років", label: "термін окупності" },
+  ];
+  return (
+    <section id="savings" className="py-20 lg:py-28 bg-brand-light">
+      <div className="container-x">
+        <div className="reveal max-w-[720px] mx-auto text-center">
+          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-emerald">Економія</span>
+          <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold text-brand-dark text-balance" style={{ letterSpacing: "-0.02em" }}>
+            Автополив окупається за 3–5 років
+          </h2>
+          <p className="mt-4 text-base text-muted-foreground">
+            Грамотно налаштована система економить 30–40% води та звільняє ваш час.
+          </p>
+
+          <div className="mt-10 grid sm:grid-cols-3 gap-4">
+            {items.map((it) => (
+              <div key={it.label} className="rounded-2xl bg-white p-6 border border-border shadow-soft">
+                <div className="grid place-items-center w-11 h-11 rounded-xl bg-brand-light text-brand-water mx-auto">
+                  <it.icon className="w-5 h-5" />
+                </div>
+                <div className="mt-4 text-3xl font-black text-brand-dark tabular-nums" style={{ letterSpacing: "-0.02em" }}>{it.value}</div>
+                <div className="mt-1 text-sm text-muted-foreground">{it.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-10 text-sm text-muted-foreground">Точний розрахунок окупності — безкоштовно після виїзду</p>
+          <a href="#quiz"
+             className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand-water text-white px-7 py-3.5 text-base font-bold hover:bg-brand-water-hover transition-colors shadow-card">
+            Замовити розрахунок <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────── REVIEWS ───────────── */
+function Reviews() {
+  const reviews = [
+    {
+      quote: "Поставили автополив на 6 соток в Совіньоні. Хлопці працювали 4 дні, все чисто і охайно. Газон тепер ідеальний — не треба думати про полив.",
+      letter: "О", name: "Олег П.", meta: "Совіньон • Автополив 6 соток",
+    },
+    {
+      quote: "Замовляла рулонний газон з крапельним поливом для квітників. Все під ключ, пояснили як користуватись. Радять від душі.",
+      letter: "І", name: "Ірина Б.", meta: "Фонтанка • Рулонний газон + полив",
+    },
+    {
+      quote: "Стара система від іншого підрядника постійно ламалась. Хлопці зробили новий проєкт на Hunter — третій сезон без жодного збою.",
+      letter: "М", name: "Михайло К.", meta: "Чорноморка • Заміна системи",
+    },
+  ];
+  return (
+    <section id="reviews" className="py-20 lg:py-32 bg-white">
+      <div className="container-x">
+        <div className="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-emerald">Відгуки</span>
+            <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold text-brand-dark" style={{ letterSpacing: "-0.02em" }}>
+              Що кажуть наші клієнти
+            </h2>
+          </div>
+          <span className="inline-flex items-center gap-2 rounded-full bg-brand-light px-4 py-2 text-sm font-bold text-brand-dark">
+            <Star className="w-4 h-4 fill-[#FBBF24] text-[#FBBF24]" /> 4.9 / 5.0 на Google Maps
+          </span>
+        </div>
+
+        <div className="mt-12 grid md:grid-cols-3 gap-5">
+          {reviews.map((r, i) => (
+            <article key={i} className="reveal flex flex-col rounded-2xl border border-border p-8" style={{ background: "var(--brand-cream)", transitionDelay: `${i * 80}ms` }}>
+              <div className="flex gap-1">
+                {Array.from({ length: 5 }).map((_, k) => (
+                  <Star key={k} className="w-4 h-4 fill-[#FBBF24] text-[#FBBF24]" />
+                ))}
+              </div>
+              <p className="mt-4 text-[15px] italic leading-[1.6] text-foreground/90 flex-1">"{r.quote}"</p>
+              <div className="mt-6 flex items-center gap-3">
+                <div className="grid place-items-center w-10 h-10 rounded-full bg-brand-water text-white font-bold">{r.letter}</div>
+                <div>
+                  <div className="text-sm font-bold text-brand-dark">{r.name}</div>
+                  <div className="text-xs text-muted-foreground">{r.meta}</div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-10 text-center">
+          <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-brand-water hover:underline">
+            Читати всі відгуки на Google Maps →
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ───────────── TEAM ───────────── */
+function Team() {
+  const cards = [
+    { letter: "В", bg: "bg-brand-emerald", name: "Віталій", role: "Засновник", bio: "14 років в ніші. Особисто веде кожен проєкт від замірів до здачі.", phone: PHONE_PRIMARY, tel: PHONE_PRIMARY_TEL },
+    { letter: "М", bg: "bg-brand-water", name: "Максим", role: "Головний інженер", bio: "Спеціаліст з систем Hunter та Rain Bird. Відповідає за технічні рішення.", phone: PHONE_SECONDARY, tel: PHONE_SECONDARY_TEL },
+  ];
+  return (
+    <section id="team" className="py-20 lg:py-32" style={{ background: "var(--brand-cream)" }}>
+      <div className="container-x grid lg:grid-cols-[45fr_55fr] gap-12 items-start">
+        <div className="reveal">
+          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-emerald">Команда</span>
+          <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold text-brand-dark text-balance" style={{ letterSpacing: "-0.02em" }}>
+            Хто буде працювати на вашому об'єкті
+          </h2>
+          <p className="mt-4 text-base text-muted-foreground max-w-md">
+            Не випадкові виконавці. Реальні люди з 14-річним досвідом в Одесі.
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 gap-5">
+          {cards.map((c) => (
+            <div key={c.name} className="reveal rounded-2xl border border-border bg-white p-7 transition-shadow hover:shadow-card">
+              <div className={`grid place-items-center w-20 h-20 rounded-full text-white text-2xl font-black ${c.bg}`}>
+                {c.letter}
+              </div>
+              <h3 className="mt-5 text-xl font-extrabold text-brand-dark">{c.name}</h3>
+              <div className="mt-1 text-xs font-bold uppercase tracking-wider text-brand-water">{c.role}</div>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.bio}</p>
+              <a href={`tel:${c.tel}`} className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand-dark hover:text-brand-water">
+                <Phone className="w-4 h-4" /> {c.phone}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 

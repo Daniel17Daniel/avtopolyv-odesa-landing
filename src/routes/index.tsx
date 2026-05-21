@@ -394,7 +394,7 @@ function Process() {
     { n: "4", title: "Монтаж та запуск", desc: "Здаємо в строк, навчаємо", water: false },
   ];
   return (
-    <section id="process" className="py-20 lg:py-28 bg-white relative overflow-hidden">
+    <section id="process" className="py-20 lg:py-28 relative overflow-hidden" style={{ background: "var(--brand-cream)" }}>
       <div className="container-x">
         <div className="reveal max-w-2xl">
           <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-emerald">Процес</span>
@@ -404,20 +404,21 @@ function Process() {
         </div>
 
         <div className="relative mt-16">
-          <div aria-hidden className="absolute left-6 top-0 bottom-0 w-px bg-gradient-to-b from-brand-accent via-brand-water to-brand-accent md:left-1/2" />
+          <div aria-hidden className="absolute left-6 top-0 bottom-0 border-l border-dashed md:left-1/2" style={{ borderColor: "var(--brand-stone)" }} />
           <div className="space-y-12">
             {steps.map((s, i) => {
               const right = i % 2 === 1;
               return (
                 <div key={s.n} className="reveal relative md:grid md:grid-cols-2 md:gap-12" style={{ transitionDelay: `${i * 150}ms` }}>
                   <div className={`pl-16 md:pl-0 ${right ? "md:col-start-2 md:pl-12" : "md:col-start-1 md:text-right md:pr-12"}`}>
-                    <h3 className="text-2xl font-extrabold text-brand-dark">{s.title}</h3>
+                    <h3 className="font-display text-2xl text-brand-dark" style={{ fontWeight: 700 }}>{s.title}</h3>
                     <p className="mt-2 text-[15px] text-muted-foreground">{s.desc}</p>
                   </div>
                   <div
-                    className={`absolute left-0 top-0 grid place-items-center w-12 h-12 rounded-full text-white text-lg font-extrabold ring-4 ring-white shadow-lg ${
+                    className={`absolute left-0 top-0 grid place-items-center w-12 h-12 rounded-full font-display text-white text-lg ring-4 shadow-md ${
                       s.water ? "bg-brand-water" : "bg-brand-accent"
                     } md:left-1/2 md:-translate-x-1/2`}
+                    style={{ fontWeight: 700, ["--tw-ring-color" as any]: "var(--brand-cream)" }}
                   >
                     {s.n}
                   </div>

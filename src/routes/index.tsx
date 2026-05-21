@@ -453,7 +453,7 @@ function WhyUs() {
           </h2>
           <div className="mt-8 flex flex-wrap gap-2">
             {["Hunter", "Rain Bird", "Irritec"].map((b) => (
-              <span key={b} className="inline-flex items-center rounded-lg bg-brand-dark text-white px-3.5 py-2 text-sm font-bold tracking-wide">
+              <span key={b} className="inline-flex items-center text-brand-dark px-1 py-1 text-sm font-display font-semibold border-b-2 border-brand-accent" style={{ fontWeight: 600, letterSpacing: "0.04em" }}>
                 {b}
               </span>
             ))}

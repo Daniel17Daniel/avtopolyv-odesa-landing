@@ -710,15 +710,18 @@ function Portfolio() {
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
           {items.map((it, i) => (
             <a key={i} href="https://instagram.com" target="_blank" rel="noopener noreferrer"
-               className={`reveal group relative overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer ${it.span}`}
+               className={`reveal group relative overflow-hidden aspect-[4/3] cursor-pointer shadow-sm hover:shadow-lg transition-shadow duration-300 ${it.span}`}
                style={{ transitionDelay: `${i * 60}ms` }}>
+              <span className="absolute top-3 right-3 z-10 text-[11px] font-semibold text-white opacity-0 group-hover:opacity-60 transition-opacity duration-300 tabular-nums">
+                {String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
+              </span>
               <img src={it.src} alt={`${it.location} — ${it.type}`} loading="lazy"
                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[600ms] group-hover:scale-105" />
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "rgba(15,61,32,0.5)" }} />
               <div className="absolute bottom-0 left-0 right-0 p-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent)" }}>
-                <div className="text-base font-bold">{it.location}</div>
-                <div className="text-sm opacity-80">{it.type}</div>
+                <div className="font-display text-lg italic" style={{ fontWeight: 600 }}>{it.type}</div>
+                <div className="text-sm font-bold opacity-90">{it.location}</div>
               </div>
             </a>
           ))}

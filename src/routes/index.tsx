@@ -530,7 +530,7 @@ function Faq() {
 function Contact() {
   return (
     <section id="contact" className="grid lg:grid-cols-[45fr_55fr]">
-      <div className="relative animated-gradient text-white p-8 sm:p-12 lg:p-16 overflow-hidden">
+      <div className="relative animated-gradient noise-overlay text-white p-8 sm:p-12 lg:p-16 overflow-hidden">
         <div className="reveal max-w-md">
           <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-accent">Контакти</span>
           <h2 className="mt-3 text-4xl sm:text-5xl font-extrabold tracking-tight">Зв'яжіться з нами</h2>

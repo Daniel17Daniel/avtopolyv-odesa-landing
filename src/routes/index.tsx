@@ -1767,7 +1767,7 @@ function AssistantWidget({ onCta }: { onCta: (svc: PrefilledService) => void }) 
         <button
           onClick={openWidget}
           aria-label="Відкрити помічника"
-          className={`fixed z-[45] bottom-[96px] right-6 md:right-6 left-6 md:left-auto group bg-white rounded-full shadow-lg hover:scale-[1.02] transition-transform ${pulse ? "assistant-pulse" : ""}`}
+          className={`fixed z-[45] bottom-[96px] left-6 md:left-auto md:right-6 group bg-white rounded-full shadow-lg hover:scale-[1.02] transition-transform ${pulse ? "assistant-pulse" : ""}`}
           style={{
             border: "1.5px solid var(--brand-water)",
             padding: "0",

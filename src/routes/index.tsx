@@ -898,7 +898,7 @@ function Reviews() {
     },
   ];
   return (
-    <section id="reviews" className="py-20 lg:py-32 bg-white">
+    <section id="reviews" className="py-20 lg:py-32" style={{ background: "var(--brand-cream-warm)" }}>
       <div className="container-x">
         <div className="reveal flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <div>
@@ -907,17 +907,18 @@ function Reviews() {
               Що кажуть наші клієнти
             </h2>
           </div>
-          <span className="inline-flex items-center gap-2 rounded-full bg-brand-light px-4 py-2 text-sm font-bold text-brand-dark">
-            <Star className="w-4 h-4 fill-[#FBBF24] text-[#FBBF24]" /> 4.9 / 5.0 на Google Maps
+          <span className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-brand-dark shadow-sm tabular-nums">
+            <Star className="w-4 h-4 fill-brand-gold text-brand-gold" strokeWidth={1.5} /> 4.9 / 5.0 на Google Maps
           </span>
         </div>
 
         <div className="mt-12 grid md:grid-cols-3 gap-5">
           {reviews.map((r, i) => (
-            <article key={i} className="reveal flex flex-col rounded-2xl border border-border p-8" style={{ background: "var(--brand-cream)", transitionDelay: `${i * 80}ms` }}>
+            <article key={i} className="reveal relative flex flex-col border p-8 bg-white shadow-sm hover:shadow-md transition-shadow duration-300" style={{ borderColor: "var(--brand-stone)", borderRadius: "18px", transitionDelay: `${i * 80}ms` }}>
+              <span aria-hidden className="absolute top-3 left-5 font-display italic select-none pointer-events-none" style={{ color: "var(--brand-earth)", opacity: 0.3, fontSize: "60px", lineHeight: 1, fontWeight: 400 }}>"</span>
               <div className="flex gap-1">
                 {Array.from({ length: 5 }).map((_, k) => (
-                  <Star key={k} className="w-4 h-4 fill-[#FBBF24] text-[#FBBF24]" />
+                  <Star key={k} className="w-4 h-4 fill-brand-gold text-brand-gold" strokeWidth={1.5} />
                 ))}
               </div>
               <p className="mt-4 text-[15px] italic leading-[1.6] text-foreground/90 flex-1">"{r.quote}"</p>

@@ -174,16 +174,9 @@ function Hero() {
   const words = ["Ваш сад", "завжди", "зеленим"];
   return (
     <section id="top" className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
-      {/* Video bg, desktop only */}
-      <video
-        autoPlay muted loop playsInline poster={heroImg}
-        className="hidden md:block absolute inset-0 w-full h-full object-cover -z-10"
-      >
-        <source src={HERO_VIDEO} type="video/mp4" />
-      </video>
-      <img src={heroImg} alt="" aria-hidden className="md:hidden absolute inset-0 w-full h-full object-cover -z-10" />
+      <img src={heroImg} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover -z-10" />
       {/* Overlay */}
-      <div className="absolute inset-0 -z-10 animated-gradient opacity-95 md:opacity-90 mix-blend-multiply" />
+      <div className="absolute inset-0 -z-10 opacity-90" style={{ background: "linear-gradient(135deg, #0f3d20 0%, #1B5E20 50%, #1976D2 100%)" }} />
       <div
         className="absolute inset-0 -z-10"
         style={{ background: "linear-gradient(135deg, rgba(27,94,32,0.85) 0%, rgba(25,118,210,0.45) 100%)" }}

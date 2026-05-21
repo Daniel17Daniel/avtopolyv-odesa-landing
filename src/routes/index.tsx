@@ -81,6 +81,7 @@ function LandingPage() {
         <Reviews />
         <Team />
         <WhyUs />
+        <PhotoStrip />
         <QuizSection ref={quizSectionRef} prefilledService={prefilledService} />
         <Faq />
         <Contact />

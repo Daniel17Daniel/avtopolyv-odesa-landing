@@ -1040,3 +1040,31 @@ function MobileBottomBar() {
     </div>
   );
 }
+
+/* ───────────── PHOTO STRIP ───────────── */
+function PhotoStrip() {
+  return (
+    <section aria-label="" className="relative w-full overflow-hidden" style={{ height: "40vh", minHeight: 280 }}>
+      <img
+        src={portfolio5}
+        alt=""
+        aria-hidden
+        loading="lazy"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.35) 100%)" }}
+      />
+      <div className="relative h-full flex items-center justify-center px-6">
+        <p
+          className="font-display italic text-white text-center max-w-[600px] text-3xl sm:text-4xl lg:text-5xl"
+          style={{ fontWeight: 400, letterSpacing: "-0.02em", textShadow: "0 2px 24px rgba(0,0,0,0.35)" }}
+        >
+          Кожен об'єкт — як для себе
+        </p>
+      </div>
+    </section>
+  );
+}

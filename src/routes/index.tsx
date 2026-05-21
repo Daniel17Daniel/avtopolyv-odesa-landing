@@ -192,16 +192,18 @@ function LandingPage() {
         <Services onPick={triggerQuiz} />
         <BeforeAfter />
         <Process />
-        <SavingsTeaser />
+        <PaybackCalculator />
         <Reviews />
         <Team />
         <WhyUs />
+        <ReadinessChecklist onCta={() => triggerQuiz("Новий автополив")} />
         <PhotoStrip />
         <QuizSection ref={quizSectionRef} prefilledService={prefilledService} />
         <Faq />
         <Contact />
       </main>
       <Footer />
+      <AssistantWidget onCta={(svc) => triggerQuiz(svc)} />
       <FloatingChat />
       <ScrollToTop />
       <MobileBottomBar />

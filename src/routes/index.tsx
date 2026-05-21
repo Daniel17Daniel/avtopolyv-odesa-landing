@@ -187,9 +187,8 @@ function Header() {
 
 /* ───────────── HERO ───────────── */
 function Hero() {
-  const words = ["Ваш сад", "завжди", "зеленим"];
   return (
-    <section id="top" className="relative h-[100svh] min-h-[640px] w-full overflow-hidden">
+    <section id="top" className="relative h-[100svh] min-h-[640px] w-full overflow-hidden noise-overlay">
       <img src={heroImg} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover -z-10" />
       {/* Overlay */}
       <div className="absolute inset-0 -z-10 opacity-90" style={{ background: "linear-gradient(135deg, #0f3d20 0%, #1B5E20 50%, #1976D2 100%)" }} />
@@ -198,44 +197,47 @@ function Hero() {
         style={{ background: "linear-gradient(135deg, rgba(27,94,32,0.85) 0%, rgba(25,118,210,0.45) 100%)" }}
       />
       {/* Blob */}
-      <svg className="absolute -bottom-1 left-0 right-0 w-full text-background" viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden>
-        <path fill="currentColor" d="M0,64 C240,120 480,16 720,40 C960,64 1200,112 1440,72 L1440,100 L0,100 Z" />
+      <svg className="absolute -bottom-1 left-0 right-0 w-full text-background" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden>
+        <path fill="currentColor" d="M0,48 C360,72 1080,24 1440,56 L1440,80 L0,80 Z" />
       </svg>
 
       <div className="relative h-full container-x flex flex-col justify-center items-center text-center text-white pt-16">
-        <span className="glass rounded-full px-4 py-1.5 text-[12px] font-semibold tracking-wide text-white inline-flex items-center gap-2">
-          🌿 Автополив • Одеса з 2011
+        <span className="glass rounded-full pl-3 pr-4 py-1.5 text-[11px] font-semibold uppercase text-white inline-flex items-center gap-2" style={{ letterSpacing: "0.18em" }}>
+          <span aria-hidden className="w-2 h-2 rounded-full bg-brand-accent" />
+          Автополив в Одесі з 2011
         </span>
 
-        <h1 className="mt-6 font-extrabold tracking-tight leading-[0.95] text-[clamp(2.6rem,8vw,6.5rem)] text-balance">
-          {words.map((w, i) => (
-            <span key={i} className="word-rise mr-3" style={{ animationDelay: `${0.15 + i * 0.25}s` }}>{w}</span>
-          ))}
+        <h1 className="mt-6 font-display text-[clamp(2.6rem,8vw,6.5rem)] text-balance" style={{ fontWeight: 700, letterSpacing: "-0.04em", lineHeight: 0.95 }}>
+          <span className="word-rise mr-3" style={{ animationDelay: "0.15s" }}>Ваш сад</span>
+          <span className="word-rise mr-3 italic text-brand-accent" style={{ animationDelay: "0.40s", fontWeight: 600 }}>завжди</span>
+          <span className="word-rise" style={{ animationDelay: "0.65s" }}>зеленим</span>
         </h1>
 
-        <p className="mt-6 max-w-xl text-base sm:text-lg text-white/80 word-rise" style={{ animationDelay: "1.1s" }}>
+        <p className="mt-8 max-w-2xl text-base sm:text-lg font-normal text-white/80 word-rise" style={{ animationDelay: "1.1s" }}>
           Системи автополиву під ключ. Hunter, Rain Bird, Irritec. 14 років в Одесі.
         </p>
 
         <div className="mt-8 flex flex-col sm:flex-row gap-3 word-rise" style={{ animationDelay: "1.3s" }}>
           <a href="#quiz"
-             className="ripple inline-flex items-center justify-center gap-2 rounded-full bg-white text-brand-dark px-7 py-4 min-h-[52px] text-base font-bold shadow-2xl transition-all hover:scale-[1.03] active:scale-[0.97]">
+             className="ripple inline-flex items-center justify-center gap-2 rounded-full bg-white text-brand-dark px-7 py-4 min-h-[52px] text-base font-bold border border-transparent shadow-md hover:shadow-xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white">
             Розрахувати вартість
           </a>
           <a href="#process"
-             className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/70 text-white px-7 py-4 min-h-[52px] text-base font-bold hover:bg-white/10 transition-all">
+             className="inline-flex items-center justify-center gap-2 rounded-full border border-white/50 text-white px-7 py-4 min-h-[52px] text-base font-bold hover:bg-white/10 hover:border-white transition-all duration-200">
             Як ми працюємо →
           </a>
         </div>
 
-        <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[13px] font-medium text-white/75 word-rise" style={{ animationDelay: "1.5s" }}>
-          <li className="inline-flex items-center gap-1.5"><Check className="w-4 h-4 text-brand-accent" /> 14 років досвіду</li>
-          <li className="inline-flex items-center gap-1.5"><Check className="w-4 h-4 text-brand-accent" /> 100+ об'єктів</li>
-          <li className="inline-flex items-center gap-1.5"><Check className="w-4 h-4 text-brand-accent" /> Гарантія 3 роки</li>
+        <ul className="mt-8 flex flex-wrap items-center justify-center gap-2 word-rise" style={{ animationDelay: "1.5s" }}>
+          {["14 років досвіду", "100+ об'єктів", "Гарантія 3 роки"].map((t) => (
+            <li key={t} className="inline-flex items-center gap-1.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-2 text-[13px] font-medium text-white">
+              <Check className="w-3 h-3 text-brand-accent" strokeWidth={2.5} /> {t}
+            </li>
+          ))}
         </ul>
 
         <a href="#services" className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/80 hover:text-white scroll-bounce" aria-label="Прокрутити">
-          <ArrowDown className="w-6 h-6" />
+          <ArrowDown className="w-6 h-6" strokeWidth={1.5} />
         </a>
       </div>
     </section>

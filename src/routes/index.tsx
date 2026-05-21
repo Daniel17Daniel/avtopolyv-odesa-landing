@@ -6,7 +6,7 @@ import {
   Star, Droplets, TrendingUp,
 } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
-import { LeadQuiz } from "@/components/LeadQuiz";
+import { LeadQuiz, type PrefilledService } from "@/components/LeadQuiz";
 import logoImg from "@/assets/garden-keeper-logo.jpg";
 import heroImg from "@/assets/hero-sprinkler.jpg";
 import portfolio1 from "@/assets/portfolio-1.jpg";
@@ -50,6 +50,21 @@ const PHONE_SECONDARY_TEL = "+380993209841";
 function LandingPage() {
   useReveal();
   useScrollProgress();
+  const [prefilledService, setPrefilledService] = useState<PrefilledService | undefined>(undefined);
+  const quizSectionRef = useRef<HTMLElement | null>(null);
+
+  const triggerQuiz = (svc: PrefilledService) => {
+    setPrefilledService(svc);
+    quizSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setTimeout(() => {
+      const card = document.querySelector("#quiz [data-quiz-card]");
+      if (card) {
+        card.classList.add("quiz-pulse");
+        setTimeout(() => card.classList.remove("quiz-pulse"), 1600);
+      }
+    }, 800);
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground pb-[68px] md:pb-0">
       <div className="scroll-progress" id="scroll-progress" />
@@ -59,14 +74,14 @@ function LandingPage() {
         <TrustBar />
         <Stats />
         <Portfolio />
-        <Services />
+        <Services onPick={triggerQuiz} />
         <BeforeAfter />
         <Process />
         <SavingsTeaser />
         <Reviews />
         <Team />
         <WhyUs />
-        <QuizSection />
+        <QuizSection ref={quizSectionRef} prefilledService={prefilledService} />
         <Faq />
         <Contact />
       </main>

@@ -313,15 +313,15 @@ function Stats() {
     { v: 2, suffix: "", label: "години до передзвону" },
   ];
   return (
-    <section className="relative py-16 lg:py-20 text-white overflow-hidden" style={{ background: "linear-gradient(135deg, #0F3D2E 0%, #1B5E20 50%, #2E7D32 100%)" }}>
+    <section className="relative py-16 lg:py-20 text-white overflow-hidden noise-overlay" style={{ background: "linear-gradient(135deg, #0F3D2E 0%, #1B5E20 50%, #2E7D32 100%)" }}>
       <div className="container-x relative">
-        <div className="grid grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-white/15">
+        <div className="grid grid-cols-2 lg:grid-cols-4 lg:divide-x lg:divide-white/10">
           {items.map((it, i) => (
             <div key={i} className="px-4 py-6 text-center reveal" style={{ transitionDelay: `${i * 80}ms` }}>
-              <div className="text-5xl sm:text-6xl font-black tracking-tight leading-none tabular-nums">
+              <div className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold leading-none tabular-nums" style={{ letterSpacing: "-0.03em" }}>
                 <Counter to={it.v} />{it.suffix}
               </div>
-              <div className="mt-3 text-[13px] sm:text-sm uppercase tracking-wider text-white/60 font-medium">{it.label}</div>
+              <div className="mt-3 text-[12px] sm:text-[13px] uppercase text-white/60 font-semibold" style={{ letterSpacing: "0.2em" }}>{it.label}</div>
             </div>
           ))}
         </div>

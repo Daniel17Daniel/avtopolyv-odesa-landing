@@ -591,12 +591,12 @@ function ContactCard({
 /* ───────────── FOOTER ───────────── */
 function Footer() {
   return (
-    <footer className="bg-brand-dark text-white">
+    <footer className="bg-brand-dark text-white noise-overlay">
       <div className="container-x py-14 grid gap-10 md:grid-cols-3">
         <div>
           <a href="#top" className="flex items-center gap-3">
-            <img src={logoImg} alt="Garden Keeper" className="w-12 h-12 rounded-full object-cover ring-2 ring-brand-accent/40" />
-            <span className="text-xl font-extrabold tracking-tight">Garden Keeper</span>
+            <img src={logoImg} alt="Garden Keeper" className="w-14 h-14 rounded-full object-cover ring-2 ring-brand-accent/40" />
+            <span className="font-display text-2xl tracking-tight" style={{ fontWeight: 700 }}>Garden Keeper</span>
           </a>
           <p className="mt-4 text-sm text-white/70 leading-relaxed">Системи автополиву з 2011 року.<br />Одеса та Одеська область.</p>
           <div className="mt-5 flex items-center gap-3">
@@ -613,7 +613,7 @@ function Footer() {
         </div>
         <div className="grid grid-cols-2 gap-6">
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-brand-accent">Навігація</h4>
+            <h4 className="font-display italic text-base text-brand-accent" style={{ fontWeight: 400 }}>Навігація</h4>
             <ul className="mt-4 space-y-2.5 text-sm text-white/80">
               <li><a href="#services" className="hover:text-brand-accent">Послуги</a></li>
               <li><a href="#process" className="hover:text-brand-accent">Процес</a></li>
@@ -621,7 +621,7 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-brand-accent">Більше</h4>
+            <h4 className="font-display italic text-base text-brand-accent" style={{ fontWeight: 400 }}>Більше</h4>
             <ul className="mt-4 space-y-2.5 text-sm text-white/80">
               <li><a href="#quiz" className="hover:text-brand-accent">Калькулятор</a></li>
               <li><a href="#contact" className="hover:text-brand-accent">Контакти</a></li>
@@ -630,8 +630,8 @@ function Footer() {
           </div>
         </div>
         <div>
-          <h4 className="text-sm font-bold uppercase tracking-wider text-brand-accent">Контакти</h4>
-          <ul className="mt-4 space-y-2.5 text-sm text-white/80">
+          <h4 className="font-display italic text-base text-brand-accent" style={{ fontWeight: 400 }}>Контакти</h4>
+          <ul className="mt-4 space-y-2.5 text-sm text-white/80 tabular-nums">
             <li><a href={`tel:${PHONE_PRIMARY_TEL}`} className="hover:text-brand-accent">Віталій: +38 {PHONE_PRIMARY}</a></li>
             <li><a href={`tel:${PHONE_SECONDARY_TEL}`} className="hover:text-brand-accent">Максим: +38 {PHONE_SECONDARY}</a></li>
             <li>Пн–Сб: 9:00 — 19:00</li>
@@ -639,8 +639,8 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-white/10">
-        <div className="container-x py-5 text-xs text-white/60 flex flex-wrap items-center justify-between gap-3">
+      <div className="border-t border-white/5">
+        <div className="container-x py-5 text-[11px] text-white/40 flex flex-wrap items-center justify-between gap-3">
           <span>© 2026 Garden Keeper. Всі права захищені.</span>
           <a href="#" className="hover:text-brand-accent">Політика конфіденційності</a>
         </div>

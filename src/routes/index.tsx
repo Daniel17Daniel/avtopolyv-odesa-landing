@@ -1063,8 +1063,14 @@ function Reviews() {
 /* ───────────── TEAM ───────────── */
 function Team() {
   const cards = [
-    { letter: "В", bg: "bg-brand-emerald", name: "Віталій", role: "Засновник", bio: "14 років в ніші. Особисто веде кожен проєкт від замірів до здачі.", phone: PHONE_PRIMARY, tel: PHONE_PRIMARY_TEL },
-    { letter: "М", bg: "bg-brand-water", name: "Максим", role: "Головний інженер", bio: "Спеціаліст з систем Hunter та Rain Bird. Відповідає за технічні рішення.", phone: PHONE_SECONDARY, tel: PHONE_SECONDARY_TEL },
+    { letter: "В", bg: "bg-brand-emerald", name: "Віталій",
+      role: "Засновник • Головний інженер",
+      bio: "14 років в ніші. Відповідає за технічні рішення та проєктування систем.",
+      phone: PHONE_PRIMARY, tel: PHONE_PRIMARY_TEL },
+    { letter: "М", bg: "bg-brand-water", name: "Максим",
+      role: "Засновник • Керівник проєктів",
+      bio: "Особисто веде кожен проєкт від першого замірy до здачі та підтримки після монтажу.",
+      phone: PHONE_SECONDARY, tel: PHONE_SECONDARY_TEL },
   ];
   return (
     <section id="team" className="py-20 lg:py-32" style={{ background: "var(--brand-cream)" }}>
@@ -1085,7 +1091,12 @@ function Team() {
                 {c.letter}
               </div>
               <h3 className="mt-5 font-display text-2xl text-brand-dark" style={{ fontWeight: 700 }}>{c.name}</h3>
-              <div className="mt-1 text-xs font-bold uppercase tracking-wider text-brand-water">{c.role}</div>
+              <div
+                className="mt-1 text-brand-water font-bold uppercase break-words"
+                style={{ fontSize: "12px", letterSpacing: "0.15em", fontWeight: 700 }}
+              >
+                {c.role}
+              </div>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.bio}</p>
               <a href={`tel:${c.tel}`} className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand-dark hover:text-brand-water tabular-nums">
                 <Phone className="w-4 h-4" strokeWidth={1.5} /> {c.phone}

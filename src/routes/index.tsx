@@ -964,14 +964,14 @@ function Team() {
         <div className="grid sm:grid-cols-2 gap-5">
           {cards.map((c) => (
             <div key={c.name} className="reveal rounded-2xl border border-border bg-white p-7 transition-shadow hover:shadow-card">
-              <div className={`grid place-items-center w-20 h-20 rounded-full text-white text-2xl font-black ${c.bg}`}>
+              <div className={`grid place-items-center w-20 h-20 rounded-full text-white font-display ${c.bg}`} style={{ fontSize: "40px", fontWeight: 700, background: `linear-gradient(135deg, var(--brand-emerald), var(--brand-water))` }}>
                 {c.letter}
               </div>
-              <h3 className="mt-5 text-xl font-extrabold text-brand-dark">{c.name}</h3>
+              <h3 className="mt-5 font-display text-2xl text-brand-dark" style={{ fontWeight: 700 }}>{c.name}</h3>
               <div className="mt-1 text-xs font-bold uppercase tracking-wider text-brand-water">{c.role}</div>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.bio}</p>
-              <a href={`tel:${c.tel}`} className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand-dark hover:text-brand-water">
-                <Phone className="w-4 h-4" /> {c.phone}
+              <a href={`tel:${c.tel}`} className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand-dark hover:text-brand-water tabular-nums">
+                <Phone className="w-4 h-4" strokeWidth={1.5} /> {c.phone}
               </a>
             </div>
           ))}

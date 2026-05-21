@@ -16,29 +16,144 @@ import portfolio4 from "@/assets/portfolio-4.jpg";
 import portfolio5 from "@/assets/portfolio-5.jpg";
 import portfolio6 from "@/assets/portfolio-6.jpg";
 
+const SITE_URL = "https://avtopolyv-odesa-landing.lovable.app";
+
+const ORG_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": `${SITE_URL}/#organization`,
+  name: "Garden Keeper",
+  alternateName: "Автополив Одеса",
+  description: "Системи автополиву, крапельного зрошення та рулонний газон в Одесі та області з 2011 року. Hunter, Rain Bird, Irritec.",
+  image: `${SITE_URL}${heroImg}`,
+  logo: `${SITE_URL}${logoImg}`,
+  telephone: ["+380930305820", "+380993209841"],
+  email: "info@gardenkeeper.ua",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Одеса",
+    addressRegion: "Одеська область",
+    addressCountry: "UA",
+  },
+  areaServed: ["Одеса", "Фонтанка", "Совіньон", "Лиманка", "Чорноморка", "Одеська область"],
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    opens: "09:00",
+    closes: "19:00",
+  },
+  priceRange: "$$",
+  foundingDate: "2011",
+  founder: [
+    { "@type": "Person", name: "Віталій", jobTitle: "Засновник, головний інженер" },
+    { "@type": "Person", name: "Максим", jobTitle: "Засновник, керівник проєктів" },
+  ],
+  sameAs: [
+    "https://instagram.com",
+    "https://tiktok.com",
+    "https://facebook.com",
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    reviewCount: "100",
+    bestRating: "5",
+  },
+};
+
+const SERVICE_SCHEMAS = [
+  {
+    name: "Системи автополиву під ключ",
+    serviceType: "Автоматичний полив",
+    description: "Проєктування та монтаж систем автополиву Hunter, Rain Bird. Гарантія до 3 років.",
+  },
+  {
+    name: "Крапельне зрошення",
+    serviceType: "Крапельний полив",
+    description: "Точкова подача води до кожної рослини. Економія до 70% води.",
+  },
+  {
+    name: "Рулонний газон",
+    serviceType: "Укладання рулонного газону",
+    description: "Готовий газон за один день з гарантією приживаності.",
+  },
+].map((s) => ({
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: s.serviceType,
+  provider: { "@id": `${SITE_URL}/#organization` },
+  name: s.name,
+  description: s.description,
+  areaServed: "Одеська область",
+  offers: {
+    "@type": "Offer",
+    priceCurrency: "UAH",
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      description: "Ціна залежить від площі та конфігурації. Виїзд для замірів безкоштовний.",
+    },
+  },
+}));
+
+const FAQ_ITEMS_FOR_SCHEMA = [
+  { q: "Скільки коштує автополив в Одесі?", a: "Вартість залежить від розміру ділянки, складності рельєфу та обраного обладнання. Точну ціну скажемо після безкоштовного виїзду та замірів." },
+  { q: "Скільки часу займає монтаж?", a: "Для типової ділянки 5-10 соток — від 3 до 7 днів. Точні терміни узгоджуємо після проєктування." },
+  { q: "Чи можна встановити автополив після укладання газону?", a: "Так, але це складніше і дорожче. Краще робити перед укладанням газону." },
+  { q: "Яка гарантія на роботи?", a: "На обладнання — гарантія виробника (до 5 років). На наші роботи — до 3 років." },
+  { q: "Як готувати систему до зими?", a: "Робимо консервацію восени — продуваємо систему стисненим повітрям." },
+  { q: "Чи працюєте за межами Одеси?", a: "Так, виїжджаємо по всій Одеській області." },
+];
+
+const FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ_ITEMS_FOR_SCHEMA.map((it) => ({
+    "@type": "Question",
+    name: it.q,
+    acceptedAnswer: { "@type": "Answer", text: it.a },
+  })),
+};
+
+const REVIEW_SCHEMAS = [
+  { author: "Олег П.", text: "Поставили автополив на 6 соток в Совіньоні. Хлопці працювали 4 дні, все чисто і охайно. Газон тепер ідеальний — не треба думати про полив." },
+  { author: "Ірина Б.", text: "Замовляла рулонний газон з крапельним поливом для квітників. Все під ключ, пояснили як користуватись. Радять від душі." },
+  { author: "Михайло К.", text: "Стара система від іншого підрядника постійно ламалась. Хлопці зробили новий проєкт на Hunter — третій сезон без жодного збою." },
+].map((r) => ({
+  "@context": "https://schema.org",
+  "@type": "Review",
+  itemReviewed: { "@id": `${SITE_URL}/#organization` },
+  reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+  author: { "@type": "Person", name: r.author },
+  reviewBody: r.text,
+}));
+
+const BREADCRUMB_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Головна", item: SITE_URL },
+  ],
+};
+
 export const Route = createFileRoute("/")({
   component: LandingPage,
   head: () => ({
     meta: [
       { title: "Garden Keeper — Автополив в Одесі з 2011 року" },
       { name: "description", content: "Системи автополиву, крапельного зрошення та рулонний газон в Одесі та області. Hunter, Rain Bird, Irritec. Гарантія до 3 років." },
+      { property: "og:title", content: "Garden Keeper — Автополив в Одесі з 2011 року" },
+      { property: "og:description", content: "Системи автополиву, крапельного зрошення та рулонний газон в Одесі та області. Hunter, Rain Bird, Irritec." },
       { property: "og:url", content: "/" },
       { property: "og:image", content: heroImg },
     ],
     links: [{ rel: "canonical", href: "/" }],
-    scripts: [{
-      type: "application/ld+json",
-      children: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        name: "Garden Keeper — Автополив Одеса",
-        image: heroImg,
-        telephone: "+380930305820",
-        address: { "@type": "PostalAddress", addressLocality: "Одеса", addressCountry: "UA" },
-        areaServed: "Одеська область",
-        priceRange: "$$",
-      }),
-    }],
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify(ORG_SCHEMA) },
+      ...SERVICE_SCHEMAS.map((s) => ({ type: "application/ld+json", children: JSON.stringify(s) })),
+      { type: "application/ld+json", children: JSON.stringify(FAQ_SCHEMA) },
+      ...REVIEW_SCHEMAS.map((r) => ({ type: "application/ld+json", children: JSON.stringify(r) })),
+      { type: "application/ld+json", children: JSON.stringify(BREADCRUMB_SCHEMA) },
+    ],
   }),
 });
 

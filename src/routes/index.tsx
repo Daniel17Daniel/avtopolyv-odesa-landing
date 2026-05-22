@@ -256,10 +256,7 @@ function useScrollProgress() {
 
 /* ───────────── HEADER ───────────── */
 function Header() {
-  // legacy signature kept for reference; replaced below
-  return null as any;
-}
-function HeaderImpl({ topOffset = 0 }: { topOffset?: number }) {
+function Header({ topOffset = 0 }: { topOffset?: number }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {

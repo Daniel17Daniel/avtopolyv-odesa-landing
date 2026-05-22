@@ -8,7 +8,8 @@ import {
 } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
 import { useMagnetic, useTilt } from "@/hooks/use-interactions";
-import { LeadQuiz, type PrefilledService } from "@/components/LeadQuiz";
+import { type PrefilledService } from "@/components/LeadQuiz";
+const LeadQuiz = React.lazy(() => import("@/components/LeadQuiz").then(module => ({ default: module.LeadQuiz })));
 import logoImg from "@/assets/garden-keeper-logo.jpg";
 import heroImg from "@/assets/hero-sprinkler.jpg";
 import portfolio1 from "@/assets/portfolio-1.jpg";
@@ -507,7 +508,9 @@ const QuizSection = React.forwardRef<HTMLElement, { prefilledService?: Prefilled
           <ShareQuizButton />
         </div>
         <div className="reveal mt-8" data-quiz-card>
-          <LeadQuiz prefilledService={prefilledService} />
+          <React.Suspense fallback={<div className="h-[560px] w-full max-w-[720px] mx-auto bg-white rounded-[20px] shadow-sm flex items-center justify-center text-muted-foreground">Завантаження...</div>}>
+            <LeadQuiz prefilledService={prefilledService} />
+          </React.Suspense>
         </div>
       </div>
     </section>

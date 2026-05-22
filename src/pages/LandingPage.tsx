@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+
 import React, { useEffect, useRef, useState } from "react";
 import {
   Phone, MessageCircle, Send, MapPin, Clock, Instagram, ArrowRight, ArrowDown,
@@ -137,34 +137,14 @@ const BREADCRUMB_SCHEMA = {
   ],
 };
 
-export const Route = createFileRoute("/")({
-  component: LandingPage,
-  head: () => ({
-    meta: [
-      { title: "Garden Keeper — Автополив в Одесі з 2011 року" },
-      { name: "description", content: "Системи автополиву, крапельного зрошення та рулонний газон в Одесі та області. Hunter, Rain Bird, Irritec. Гарантія до 3 років." },
-      { property: "og:title", content: "Garden Keeper — Автополив в Одесі з 2011 року" },
-      { property: "og:description", content: "Системи автополиву, крапельного зрошення та рулонний газон в Одесі та області. Hunter, Rain Bird, Irritec." },
-      { property: "og:url", content: "/" },
-      { property: "og:image", content: heroImg },
-    ],
-    links: [{ rel: "canonical", href: "/" }],
-    scripts: [
-      { type: "application/ld+json", children: JSON.stringify(ORG_SCHEMA) },
-      ...SERVICE_SCHEMAS.map((s) => ({ type: "application/ld+json", children: JSON.stringify(s) })),
-      { type: "application/ld+json", children: JSON.stringify(FAQ_SCHEMA) },
-      ...REVIEW_SCHEMAS.map((r) => ({ type: "application/ld+json", children: JSON.stringify(r) })),
-      { type: "application/ld+json", children: JSON.stringify(BREADCRUMB_SCHEMA) },
-    ],
-  }),
-});
+
 
 const PHONE_PRIMARY = "093 030 58 20";
 const PHONE_PRIMARY_TEL = "+380930305820";
 const PHONE_SECONDARY = "099 320 98 41";
 const PHONE_SECONDARY_TEL = "+380993209841";
 
-function LandingPage() {
+export default function LandingPage() {
   useReveal();
   useScrollProgress();
   const [prefilledService, setPrefilledService] = useState<PrefilledService | undefined>(undefined);

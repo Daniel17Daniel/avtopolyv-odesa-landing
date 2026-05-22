@@ -4,8 +4,10 @@ import {
   Phone, MessageCircle, Send, MapPin, Clock, Instagram, ArrowRight, ArrowDown,
   Menu, X, ChevronDown, ChevronUp, Facebook, Music2, Check,
   Star, Droplets, TrendingUp, ChevronRight, CheckCircle2, AlertCircle, Info,
+  Link2,
 } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
+import { useMagnetic, useTilt } from "@/hooks/use-interactions";
 import { LeadQuiz, type PrefilledService } from "@/components/LeadQuiz";
 import logoImg from "@/assets/garden-keeper-logo.jpg";
 import heroImg from "@/assets/hero-sprinkler.jpg";
@@ -167,6 +169,7 @@ function LandingPage() {
   useScrollProgress();
   const [prefilledService, setPrefilledService] = useState<PrefilledService | undefined>(undefined);
   const quizSectionRef = useRef<HTMLElement | null>(null);
+  const [seasonalVisible, setSeasonalVisible] = useState(false);
 
   const triggerQuiz = (svc: PrefilledService) => {
     setPrefilledService(svc);
@@ -180,16 +183,39 @@ function LandingPage() {
     }, 800);
   };
 
+  // URL parameter pre-fill
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const service = params.get("service");
+    const serviceMap: Record<string, PrefilledService> = {
+      remont: "Ремонт існуючої системи",
+      avtopoliv: "Новий автополив",
+      kapelnyi: "Крапельний полив",
+      gazon: "Рулонний газон",
+      service: "Сезонне обслуговування",
+    };
+    if (service && serviceMap[service]) {
+      const svc = serviceMap[service];
+      setPrefilledService(svc);
+      setTimeout(() => {
+        quizSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 600);
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground pb-[68px] md:pb-0">
+      <SeasonalTimer onVisibilityChange={setSeasonalVisible} />
       <div className="scroll-progress" id="scroll-progress" />
-      <Header />
+      <Header topOffset={seasonalVisible ? 36 : 0} />
       <main>
         <Hero />
         <TrustBar />
         <Stats />
         <Portfolio />
         <Services onPick={triggerQuiz} />
+        <ExistingSystem onRepair={() => triggerQuiz("Ремонт існуючої системи")} />
         <BeforeAfter />
         <Process />
         <PaybackCalculator />
@@ -203,6 +229,7 @@ function LandingPage() {
         <Contact />
       </main>
       <Footer />
+      <StickyCTABar topOffset={seasonalVisible ? 36 : 0} />
       <AssistantWidget onCta={(svc) => triggerQuiz(svc)} />
       <FloatingChat />
       <ScrollToTop />

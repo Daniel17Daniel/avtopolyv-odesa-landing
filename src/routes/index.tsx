@@ -365,13 +365,13 @@ function Hero() {
         </p>
 
         <div className="mt-8 flex flex-col sm:flex-row gap-3 word-rise" style={{ animationDelay: "1.3s" }}>
-          <a href="#quiz"
+          <a ref={magPrimary} href="#quiz"
              className="ripple inline-flex items-center justify-center gap-2 rounded-full bg-white text-brand-dark px-7 py-4 min-h-[52px] text-base font-bold border border-transparent shadow-md hover:shadow-xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white">
             Розрахувати вартість
           </a>
-          <a href="#process"
+          <a ref={magSecondary} href="#portfolio"
              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/50 text-white px-7 py-4 min-h-[52px] text-base font-bold hover:bg-white/10 hover:border-white transition-all duration-200">
-            Як ми працюємо →
+            Наші роботи →
           </a>
         </div>
 

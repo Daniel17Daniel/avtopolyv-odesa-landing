@@ -332,6 +332,8 @@ function Header({ topOffset = 0 }: { topOffset?: number }) {
 
 /* ───────────── HERO ───────────── */
 function Hero() {
+  const magPrimary = useMagnetic<HTMLAnchorElement>(0.3);
+  const magSecondary = useMagnetic<HTMLAnchorElement>(0.25);
   return (
     <section id="top" className="relative h-[100svh] min-h-[640px] w-full overflow-hidden noise-overlay">
       <img src={heroImg} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover -z-10" />

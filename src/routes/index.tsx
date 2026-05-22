@@ -272,7 +272,8 @@ function Header({ topOffset = 0 }: { topOffset?: number }) {
   ];
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+      style={{ top: topOffset }}
+      className={`fixed inset-x-0 z-50 transition-all duration-300 ${
         scrolled ? "bg-white/95 backdrop-blur-xl shadow-[0_2px_24px_-10px_rgba(27,94,32,0.25)]" : "bg-transparent"
       }`}
     >

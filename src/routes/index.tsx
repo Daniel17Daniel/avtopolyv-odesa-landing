@@ -516,6 +516,7 @@ const QuizSection = React.forwardRef<HTMLElement, { prefilledService?: Prefilled
       </svg>
       <div className="container-x relative">
         <div className="reveal max-w-2xl mx-auto text-center">
+          <ActivityBadge />
           <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-emerald">Готові почати?</span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-dark tracking-tight text-balance" style={{ letterSpacing: "-0.02em" }}>
             Розрахуйте проєкт <span className="text-brand-water">за 1 хвилину</span>
@@ -523,6 +524,7 @@ const QuizSection = React.forwardRef<HTMLElement, { prefilledService?: Prefilled
           <p className="mt-4 text-base text-muted-foreground max-w-xl mx-auto">
             Без зобов'язань. Після опитування підготуємо персональну пропозицію.
           </p>
+          <ShareQuizButton />
         </div>
         <div className="reveal mt-8" data-quiz-card>
           <LeadQuiz prefilledService={prefilledService} />

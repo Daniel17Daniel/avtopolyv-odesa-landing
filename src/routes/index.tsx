@@ -857,25 +857,33 @@ function Portfolio() {
 
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
           {items.map((it, i) => (
-            <a key={i} href="https://instagram.com" target="_blank" rel="noopener noreferrer"
-               className={`reveal group relative overflow-hidden aspect-[4/3] cursor-pointer shadow-sm hover:shadow-lg transition-shadow duration-300 ${it.span}`}
-               style={{ transitionDelay: `${i * 60}ms`, borderRadius: "18px" }}>
-              <span className="absolute top-3 right-3 z-10 text-[11px] font-semibold text-white opacity-0 group-hover:opacity-60 transition-opacity duration-300 tabular-nums">
-                {String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
-              </span>
-              <img src={it.src} alt={`${it.location} — ${it.type}`} loading="lazy"
-                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-[600ms] group-hover:scale-105" />
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "rgba(15,61,32,0.5)" }} />
-              <div className="absolute bottom-0 left-0 right-0 p-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                   style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent)" }}>
-                <div className="font-display text-lg italic" style={{ fontWeight: 600 }}>{it.type}</div>
-                <div className="text-sm font-bold opacity-90">{it.location}</div>
-              </div>
-            </a>
+            <PortfolioCard key={i} {...it} index={i} total={items.length} />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function PortfolioCard({ src, location, type, span, index, total }: { src: string; location: string; type: string; span: string; index: number; total: number }) {
+  const tiltRef = useTilt<HTMLAnchorElement>(8);
+  return (
+    <a ref={tiltRef} href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+       className={`reveal group relative overflow-hidden aspect-[4/3] cursor-pointer shadow-sm hover:shadow-lg transition-shadow duration-300 ${span}`}
+       style={{ transitionDelay: `${index * 60}ms`, borderRadius: "18px" }}>
+      <span className="absolute top-3 right-3 z-10 text-[11px] font-semibold text-white opacity-0 group-hover:opacity-60 transition-opacity duration-300 tabular-nums">
+        {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+      </span>
+      <img src={src} alt={`${location} — ${type}`} loading="lazy" width={800} height={600}
+           className="absolute inset-0 w-full h-full object-cover transition-transform duration-[600ms] group-hover:scale-105"
+           onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "rgba(15,61,32,0.5)" }} />
+      <div className="absolute bottom-0 left-0 right-0 p-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+           style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent)" }}>
+        <div className="font-display text-lg italic" style={{ fontWeight: 600 }}>{type}</div>
+        <div className="text-sm font-bold opacity-90">{location}</div>
+      </div>
+    </a>
   );
 }
 

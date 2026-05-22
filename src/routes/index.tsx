@@ -791,6 +791,7 @@ function Footer() {
       <div className="border-t border-white/5">
         <div className="container-x py-5 text-[11px] text-white/40 flex flex-wrap items-center justify-between gap-3">
           <span>© 2026 Garden Keeper. Всі права захищені.</span>
+          <span className="italic opacity-80">Створено з турботою в Одесі</span>
           <a href="#" className="hover:text-brand-accent">Політика конфіденційності</a>
         </div>
       </div>

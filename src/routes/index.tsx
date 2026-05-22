@@ -4,8 +4,10 @@ import {
   Phone, MessageCircle, Send, MapPin, Clock, Instagram, ArrowRight, ArrowDown,
   Menu, X, ChevronDown, ChevronUp, Facebook, Music2, Check,
   Star, Droplets, TrendingUp, ChevronRight, CheckCircle2, AlertCircle, Info,
+  Link2,
 } from "lucide-react";
 import { useReveal } from "@/hooks/use-reveal";
+import { useMagnetic, useTilt } from "@/hooks/use-interactions";
 import { LeadQuiz, type PrefilledService } from "@/components/LeadQuiz";
 import logoImg from "@/assets/garden-keeper-logo.jpg";
 import heroImg from "@/assets/hero-sprinkler.jpg";
@@ -167,6 +169,7 @@ function LandingPage() {
   useScrollProgress();
   const [prefilledService, setPrefilledService] = useState<PrefilledService | undefined>(undefined);
   const quizSectionRef = useRef<HTMLElement | null>(null);
+  const [seasonalVisible, setSeasonalVisible] = useState(false);
 
   const triggerQuiz = (svc: PrefilledService) => {
     setPrefilledService(svc);
@@ -180,16 +183,39 @@ function LandingPage() {
     }, 800);
   };
 
+  // URL parameter pre-fill
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const service = params.get("service");
+    const serviceMap: Record<string, PrefilledService> = {
+      remont: "Ремонт існуючої системи",
+      avtopoliv: "Новий автополив",
+      kapelnyi: "Крапельний полив",
+      gazon: "Рулонний газон",
+      service: "Сезонне обслуговування",
+    };
+    if (service && serviceMap[service]) {
+      const svc = serviceMap[service];
+      setPrefilledService(svc);
+      setTimeout(() => {
+        quizSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 600);
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground pb-[68px] md:pb-0">
+      <SeasonalTimer onVisibilityChange={setSeasonalVisible} />
       <div className="scroll-progress" id="scroll-progress" />
-      <Header />
+      <Header topOffset={seasonalVisible ? 36 : 0} />
       <main>
         <Hero />
         <TrustBar />
         <Stats />
         <Portfolio />
         <Services onPick={triggerQuiz} />
+        <ExistingSystem onRepair={() => triggerQuiz("Ремонт існуючої системи")} />
         <BeforeAfter />
         <Process />
         <PaybackCalculator />
@@ -203,6 +229,7 @@ function LandingPage() {
         <Contact />
       </main>
       <Footer />
+      <StickyCTABar topOffset={seasonalVisible ? 36 : 0} />
       <AssistantWidget onCta={(svc) => triggerQuiz(svc)} />
       <FloatingChat />
       <ScrollToTop />
@@ -228,7 +255,7 @@ function useScrollProgress() {
 }
 
 /* ───────────── HEADER ───────────── */
-function Header() {
+function Header({ topOffset = 0 }: { topOffset?: number }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -245,7 +272,8 @@ function Header() {
   ];
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+      style={{ top: topOffset }}
+      className={`fixed inset-x-0 z-50 transition-all duration-300 ${
         scrolled ? "bg-white/95 backdrop-blur-xl shadow-[0_2px_24px_-10px_rgba(27,94,32,0.25)]" : "bg-transparent"
       }`}
     >
@@ -304,6 +332,8 @@ function Header() {
 
 /* ───────────── HERO ───────────── */
 function Hero() {
+  const magPrimary = useMagnetic<HTMLAnchorElement>(0.3);
+  const magSecondary = useMagnetic<HTMLAnchorElement>(0.25);
   return (
     <section id="top" className="relative h-[100svh] min-h-[640px] w-full overflow-hidden noise-overlay">
       <img src={heroImg} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover -z-10" />
@@ -335,13 +365,13 @@ function Hero() {
         </p>
 
         <div className="mt-8 flex flex-col sm:flex-row gap-3 word-rise" style={{ animationDelay: "1.3s" }}>
-          <a href="#quiz"
+          <a ref={magPrimary} href="#quiz"
              className="ripple inline-flex items-center justify-center gap-2 rounded-full bg-white text-brand-dark px-7 py-4 min-h-[52px] text-base font-bold border border-transparent shadow-md hover:shadow-xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white">
             Розрахувати вартість
           </a>
-          <a href="#process"
+          <a ref={magSecondary} href="#portfolio"
              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/50 text-white px-7 py-4 min-h-[52px] text-base font-bold hover:bg-white/10 hover:border-white transition-all duration-200">
-            Як ми працюємо →
+            Наші роботи →
           </a>
         </div>
 
@@ -486,6 +516,7 @@ const QuizSection = React.forwardRef<HTMLElement, { prefilledService?: Prefilled
       </svg>
       <div className="container-x relative">
         <div className="reveal max-w-2xl mx-auto text-center">
+          <ActivityBadge />
           <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-emerald">Готові почати?</span>
           <h2 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-extrabold text-brand-dark tracking-tight text-balance" style={{ letterSpacing: "-0.02em" }}>
             Розрахуйте проєкт <span className="text-brand-water">за 1 хвилину</span>
@@ -493,6 +524,7 @@ const QuizSection = React.forwardRef<HTMLElement, { prefilledService?: Prefilled
           <p className="mt-4 text-base text-muted-foreground max-w-xl mx-auto">
             Без зобов'язань. Після опитування підготуємо персональну пропозицію.
           </p>
+          <ShareQuizButton />
         </div>
         <div className="reveal mt-8" data-quiz-card>
           <LeadQuiz prefilledService={prefilledService} />
@@ -759,6 +791,7 @@ function Footer() {
       <div className="border-t border-white/5">
         <div className="container-x py-5 text-[11px] text-white/40 flex flex-wrap items-center justify-between gap-3">
           <span>© 2026 Garden Keeper. Всі права захищені.</span>
+          <span className="italic opacity-80">Створено з турботою в Одесі</span>
           <a href="#" className="hover:text-brand-accent">Політика конфіденційності</a>
         </div>
       </div>
@@ -827,25 +860,33 @@ function Portfolio() {
 
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
           {items.map((it, i) => (
-            <a key={i} href="https://instagram.com" target="_blank" rel="noopener noreferrer"
-               className={`reveal group relative overflow-hidden aspect-[4/3] cursor-pointer shadow-sm hover:shadow-lg transition-shadow duration-300 ${it.span}`}
-               style={{ transitionDelay: `${i * 60}ms`, borderRadius: "18px" }}>
-              <span className="absolute top-3 right-3 z-10 text-[11px] font-semibold text-white opacity-0 group-hover:opacity-60 transition-opacity duration-300 tabular-nums">
-                {String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
-              </span>
-              <img src={it.src} alt={`${it.location} — ${it.type}`} loading="lazy"
-                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-[600ms] group-hover:scale-105" />
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "rgba(15,61,32,0.5)" }} />
-              <div className="absolute bottom-0 left-0 right-0 p-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                   style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent)" }}>
-                <div className="font-display text-lg italic" style={{ fontWeight: 600 }}>{it.type}</div>
-                <div className="text-sm font-bold opacity-90">{it.location}</div>
-              </div>
-            </a>
+            <PortfolioCard key={i} {...it} index={i} total={items.length} />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function PortfolioCard({ src, location, type, span, index, total }: { src: string; location: string; type: string; span: string; index: number; total: number }) {
+  const tiltRef = useTilt<HTMLAnchorElement>(8);
+  return (
+    <a ref={tiltRef} href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+       className={`reveal group relative overflow-hidden aspect-[4/3] cursor-pointer shadow-sm hover:shadow-lg transition-shadow duration-300 ${span}`}
+       style={{ transitionDelay: `${index * 60}ms`, borderRadius: "18px" }}>
+      <span className="absolute top-3 right-3 z-10 text-[11px] font-semibold text-white opacity-0 group-hover:opacity-60 transition-opacity duration-300 tabular-nums">
+        {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+      </span>
+      <img src={src} alt={`${location} — ${type}`} loading="lazy" width={800} height={600}
+           className="absolute inset-0 w-full h-full object-cover transition-transform duration-[600ms] group-hover:scale-105"
+           onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none"; }} />
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "rgba(15,61,32,0.5)" }} />
+      <div className="absolute bottom-0 left-0 right-0 p-5 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+           style={{ background: "linear-gradient(to top, rgba(0,0,0,0.7), transparent)" }}>
+        <div className="font-display text-lg italic" style={{ fontWeight: 600 }}>{type}</div>
+        <div className="text-sm font-bold opacity-90">{location}</div>
+      </div>
+    </a>
   );
 }
 
@@ -1882,5 +1923,220 @@ function AssistantWidget({ onCta }: { onCta: (svc: PrefilledService) => void }) 
         </>
       )}
     </>
+  );
+}
+/* ───────────── SEASONAL TIMER ───────────── */
+function SeasonalTimer({ onVisibilityChange }: { onVisibilityChange: (v: boolean) => void }) {
+  const [visible, setVisible] = useState(false);
+  const [days, setDays] = useState(0);
+
+  useEffect(() => {
+    const now = new Date();
+    const m = now.getMonth(); // 0-11
+    if (m < 2 || m > 9) { onVisibilityChange(false); return; }
+    const endOfSeason = new Date(now.getFullYear(), 9, 31);
+    if (now > endOfSeason) { onVisibilityChange(false); return; }
+    const d = Math.ceil((endOfSeason.getTime() - now.getTime()) / 86400000);
+    setDays(d);
+    if (typeof window !== "undefined" && sessionStorage.getItem("seasonal-dismissed") === "1") {
+      onVisibilityChange(false);
+      return;
+    }
+    setVisible(true);
+    onVisibilityChange(true);
+  }, [onVisibilityChange]);
+
+  if (!visible) return null;
+  const text = days > 60
+    ? "🌱 Сезон автополиву в розпалі — безкоштовний виїзд цього тижня"
+    : days > 30
+    ? `🌱 До кінця сезону монтажу — ${days} днів. Записуйтесь зараз →`
+    : `⏰ Останні ${days} днів сезону. Завершуємо роботи до зими →`;
+
+  return (
+    <div className="fixed top-0 inset-x-0 h-9 z-[55] text-white text-[13px] font-semibold flex items-center justify-center px-4"
+         style={{ background: "linear-gradient(90deg, var(--brand-water), var(--brand-emerald))" }}>
+      <a href="#quiz" className="truncate hover:underline">{text}</a>
+      <button onClick={() => { sessionStorage.setItem("seasonal-dismissed", "1"); setVisible(false); onVisibilityChange(false); }}
+              aria-label="Закрити" className="absolute right-3 grid place-items-center w-6 h-6 rounded-full hover:bg-white/20">
+        <X className="w-3.5 h-3.5" />
+      </button>
+    </div>
+  );
+}
+
+/* ───────────── STICKY CTA BAR ───────────── */
+function StickyCTABar({ topOffset = 0 }: { topOffset?: number }) {
+  const [show, setShow] = useState(false);
+  const [quizInView, setQuizInView] = useState(false);
+  const magRef = useMagnetic<HTMLAnchorElement>(0.3);
+
+  useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const h = document.documentElement;
+        const pct = h.scrollTop / (h.scrollHeight - h.clientHeight);
+        setShow(pct > 0.4 && pct < 0.95);
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    const el = document.getElementById("quiz");
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setQuizInView(e.isIntersecting), { threshold: 0.2 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const hidden = !show || quizInView;
+  return (
+    <div
+      style={{
+        top: topOffset,
+        transform: hidden ? "translateY(-110%)" : "translateY(0)",
+        transition: "transform 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+        background: "rgba(255,255,255,0.92)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        boxShadow: "0 4px 16px -4px rgba(0,0,0,0.06)",
+      }}
+      className="fixed inset-x-0 z-40 border-b border-[#E5E7EB] h-14 md:h-14"
+      aria-hidden={hidden}
+    >
+      <div className="container-x flex items-center justify-between h-full gap-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <Droplets className="w-5 h-5 text-brand-water shrink-0" />
+          <div className="min-w-0">
+            <div className="text-[14px] font-bold text-brand-dark truncate">Розрахуйте автополив за 1 хвилину</div>
+            <div className="text-[11px] text-muted-foreground hidden sm:block">Безкоштовно • без зобов'язань</div>
+          </div>
+        </div>
+        <a ref={magRef} href="#quiz"
+           className="inline-flex items-center gap-1.5 rounded-[10px] bg-brand-water hover:bg-brand-water-hover text-white px-4 py-2 text-[14px] font-bold whitespace-nowrap transition-colors">
+          <span className="hidden sm:inline">Розрахувати</span>
+          <span className="sm:hidden">Розрахунок</span>
+          <ArrowRight className="w-4 h-4" />
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/* ───────────── ACTIVITY BADGE ───────────── */
+function ActivityBadge() {
+  const [n, setN] = useState<number | null>(null);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    let stored = sessionStorage.getItem("activity");
+    let num = stored ? parseInt(stored, 10) : NaN;
+    if (!stored || Number.isNaN(num)) {
+      num = 8 + Math.floor(Math.random() * 16);
+      sessionStorage.setItem("activity", String(num));
+    }
+    setN(num);
+  }, []);
+  if (n === null) return null;
+  return (
+    <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-brand-light px-3.5 py-1.5"
+         style={{ border: "1px solid color-mix(in oklab, var(--brand-accent) 30%, transparent)" }}>
+      <span className="relative inline-flex w-2 h-2">
+        <span className="absolute inset-0 rounded-full bg-brand-emerald animate-ping opacity-60" />
+        <span className="relative w-2 h-2 rounded-full bg-brand-emerald" />
+      </span>
+      <span className="text-[13px] font-semibold text-brand-emerald tabular-nums">
+        {n} людей залишили заявку цього тижня
+      </span>
+    </div>
+  );
+}
+
+/* ───────────── SHARE QUIZ BUTTON ───────────── */
+function ShareQuizButton() {
+  const [copied, setCopied] = useState(false);
+  const onClick = async () => {
+    if (typeof window === "undefined") return;
+    const url = `${window.location.origin}${window.location.pathname}#quiz`;
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    } catch {
+      window.prompt("Скопіюйте посилання:", url);
+    }
+  };
+  return (
+    <button onClick={onClick}
+            className="mt-4 inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-brand-water hover:underline transition-colors">
+      <Link2 className="w-3.5 h-3.5" />
+      {copied ? "Посилання скопійовано!" : "Поділитись опитуванням"}
+    </button>
+  );
+}
+
+/* ───────────── EXISTING SYSTEM (repair funnel) ───────────── */
+function ExistingSystem({ onRepair }: { onRepair: () => void }) {
+  const problems = [
+    "Жовті плями на газоні — не покриває зони",
+    "Калюжі або труба тече",
+    "Деякі зони не поливаються",
+    "Хочеться додати автоматизацію",
+  ];
+  const stats = [
+    { v: "200+", l: "відремонтованих систем" },
+    { v: "24 год", l: "максимум до приїзду" },
+    { v: "3 роки", l: "гарантія на роботи" },
+  ];
+  const magRef = useMagnetic<HTMLButtonElement>(0.3);
+  return (
+    <section id="existing-system" className="relative py-20 lg:py-28 noise-overlay text-white"
+             style={{ background: "linear-gradient(135deg, #0F3D2E 0%, #1B5E20 55%, #2E7D32 100%)" }}>
+      <div className="container-x grid lg:grid-cols-[3fr_2fr] gap-12 items-center relative">
+        <div className="reveal">
+          <span className="text-xs font-bold uppercase tracking-[0.22em] text-brand-accent">Вже є система?</span>
+          <h2 className="mt-3 font-display text-4xl sm:text-5xl font-extrabold tracking-tight text-balance" style={{ letterSpacing: "-0.025em" }}>
+            У вас уже встановлено автополив, але…
+          </h2>
+          <ul className="mt-7 space-y-3">
+            {problems.map((p) => (
+              <li key={p} className="flex items-start gap-3 text-[16px] text-white/90">
+                <span className="grid place-items-center w-6 h-6 rounded-full bg-red-500/20 text-red-300 shrink-0 mt-0.5" aria-hidden>
+                  <X className="w-3.5 h-3.5" strokeWidth={3} />
+                </span>
+                {p}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-7 text-[16px] text-white/85 max-w-lg">
+            Робимо ремонт, апгрейд або повну заміну. Виїзд для діагностики — безкоштовний.
+          </p>
+          <button ref={magRef} onClick={onRepair}
+                  className="mt-7 inline-flex items-center gap-2 rounded-full bg-white text-brand-dark px-7 py-4 text-base font-bold hover:shadow-xl transition-shadow">
+            Викликати майстра на діагностику <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
+
+        <div className="reveal glass rounded-[18px] p-8"
+             style={{ background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)" }}>
+          <div className="text-[11px] uppercase font-semibold text-white/60" style={{ letterSpacing: "0.2em" }}>
+            Ремонтні роботи
+          </div>
+          <div className="mt-5 space-y-5">
+            {stats.map((s, i) => (
+              <div key={s.l} className={i < stats.length - 1 ? "pb-5 border-b border-white/15" : ""}>
+                <div className="font-display text-5xl text-white tabular-nums" style={{ fontWeight: 700, letterSpacing: "-0.03em" }}>{s.v}</div>
+                <div className="mt-1 text-sm text-white/70">{s.l}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }

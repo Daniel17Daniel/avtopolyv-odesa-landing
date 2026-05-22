@@ -255,7 +255,6 @@ function useScrollProgress() {
 }
 
 /* ───────────── HEADER ───────────── */
-function Header() {
 function Header({ topOffset = 0 }: { topOffset?: number }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
